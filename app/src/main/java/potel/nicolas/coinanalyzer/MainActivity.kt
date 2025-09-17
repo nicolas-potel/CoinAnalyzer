@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import potel.nicolas.coinanalyzer.components.SectionTitle
+import potel.nicolas.coinanalyzer.components.AppNavigation
 import potel.nicolas.coinanalyzer.ui.theme.ApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                         .padding(innerPadding)
                         .padding(12.dp)
                     ) {
-                        SectionTitle("Home page");
+                        AppNavigation()
                     }
                 }
             }
