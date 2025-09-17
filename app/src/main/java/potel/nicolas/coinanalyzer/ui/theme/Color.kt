@@ -28,3 +28,5 @@ val darkApplicationTheme = ApplicationTheme(
     secondary = Color(0xFFFC17D4),
     tertiary = Color(0xFF252728)
 )
+
+val applicationTheme = darkApplicationTheme;
