@@ -1,3 +1,39 @@
 <resources>
     <string name="app_name">Coin Analyzer</string>
+
+    <string name="page_home">Accueil</string>
+    <string name="page_coins">Coins</string>
+    <string name="page_favorites">Favoris</string>
+    <string name="page_search">Recherche</string>
+    <string name="page_settings">Paramètres</string>
+
+    <string name="home_favorites">Vos favoris</string>
+    <string name="home_see_more">Voir plus …</string>
+    <string name="home_coins">Coins</string>
+
+    <string name="search_title">Recherches récentes</string>
+    <string name="search_searchbar">Chercher des coins …</string>
+    <string name="search_cancel">Annuler</string>
+
+    <string name="overview_title">Vue d\'ensemble</string>
+    <string name="overview_statistics">Statistiques</string>
+    <string name="overview_market_cap">Capitalisation</string>
+    <string name="overview_rank">Rang</string>
+    <string name="overview_all_time_low">Prix le plus bas</string>
+    <string name="overview_all_time_high">Prix le plus haut</string>
+    <string name="overview_max_supply">Nombre maximal</string>
+    <string name="overview_market_dominance">Domination du marché</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_currency">Devise</string>
+    <string name="settings_language">Langue</string>
+    <string name="settings_view">Vue</string>
+    <string name="settings_view_grid">Grille</string>
+    <string name="settings_view_list">Liste</string>
+
+    <string name="languages_fr">Français</string>
+    <string name="languages_en">English</string>
+
+    <string name="currencies_title">Devises</string>
+
 </resources>

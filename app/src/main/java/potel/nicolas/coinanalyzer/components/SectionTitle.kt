@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.ui.theme.darkApplicationTheme
 
 /**
  * Displays specified title with default applications colors.
@@ -23,7 +23,7 @@ fun SectionTitle(content: String) {
         modifier = Modifier
             .drawBehind {
                 val gradient = Brush.horizontalGradient(
-                    colors = listOf(applicationTheme.primary, applicationTheme.secondary)
+                    colors = listOf(darkApplicationTheme.primary, darkApplicationTheme.secondary)
                 )
                 drawLine(
                     brush = gradient,

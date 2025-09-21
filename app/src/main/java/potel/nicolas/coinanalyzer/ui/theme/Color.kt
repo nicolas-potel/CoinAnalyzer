@@ -2,7 +2,6 @@ package potel.nicolas.coinanalyzer.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-
 data class ApplicationTheme(
     val background: Color,
     val font: Color,
@@ -28,5 +27,3 @@ val darkApplicationTheme = ApplicationTheme(
     secondary = Color(0xFFFC17D4),
     tertiary = Color(0xFF252728)
 )
-
-val applicationTheme = darkApplicationTheme;
