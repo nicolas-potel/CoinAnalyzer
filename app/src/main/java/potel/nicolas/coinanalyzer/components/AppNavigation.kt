@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.pages.FavoritesPage
 import potel.nicolas.coinanalyzer.pages.HomePage
 
@@ -13,12 +14,12 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = Routes.HOME
     ) {
-        composable("home") {
+        composable(Routes.HOME) {
             HomePage(navController)
         }
-        composable("favorites") {
+        composable(Routes.FAVORITES) {
             FavoritesPage(navController)
         }
     }
