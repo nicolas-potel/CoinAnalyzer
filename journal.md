@@ -24,5 +24,7 @@ Pas de séance cette semaine suite à une conférence prévue à l'heure de la s
 ### Semaine du 29/09/2025
 
 [<span style="color:green">+</span>] Composant SearchedCrypto commencé la semaine précédente
+[<span style="color:green">+</span>] Composant CryptoListView pour l'affichage en liste
+[<span style="color:green">+</span>] Ajout des icônes (favoris, partager, trending up & down)
 
-<b>Utilisation de l'IA</b> : pour diverses questions de syntaxe, pour le debugging d'une dépendance qui n'arrivait pas à fonctionner
+<b>Utilisation de l'IA</b> : pour diverses questions de syntaxe, pour le debugging d'une dépendance qui n'arrivait pas à fonctionner, pour l'ajout d'un vector au projet pour les icônes
