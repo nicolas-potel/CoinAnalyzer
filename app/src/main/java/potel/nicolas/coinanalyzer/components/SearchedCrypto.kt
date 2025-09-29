@@ -4,11 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -46,9 +43,11 @@ fun SearchedCrypto(crypto : Crypto) {
             contentDescription = "Searched crypto ${crypto.name}"
         )
         Box(modifier = Modifier.align(Alignment.CenterVertically)) {
-            Text(fontSize = 16.sp,
+            Text(
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
-                text = capitalizeFirstLetter(crypto.name))
+                text = capitalizeFirstLetter(crypto.name)
+            )
         }
     }
 }

@@ -15,7 +15,7 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.SEARCH
+        startDestination = Routes.HOME
     ) {
         composable(Routes.HOME) {
             HomePage(navController)

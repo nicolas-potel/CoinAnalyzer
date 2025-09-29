@@ -14,32 +14,12 @@ import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.SearchedCrypto
 import potel.nicolas.coinanalyzer.components.SectionTitle
-import potel.nicolas.coinanalyzer.config.Routes
-import potel.nicolas.coinanalyzer.model.Crypto
+import potel.nicolas.coinanalyzer.model.crypto1
+import potel.nicolas.coinanalyzer.model.crypto2
+import potel.nicolas.coinanalyzer.model.crypto3
 
 @Composable
 fun SearchPage(navController: NavHostController) {
-    val crypto1 = Crypto(
-        "bitcoin",
-        "btc",
-        "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
-        119.5
-    )
-
-    val crypto2 = Crypto(
-        "ethereum",
-        "eth",
-        "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png",
-        119.5
-    )
-
-    val crypto3 = Crypto(
-        "bittensor",
-        "tao",
-        "https://coin-images.coingecko.com/coins/images/28452/large/ARUsPeNQ_400x400.jpeg",
-        119.5
-    )
-
     Column {
         SectionTitle(stringResource(id = R.string.page_search))
         FlowRow(
