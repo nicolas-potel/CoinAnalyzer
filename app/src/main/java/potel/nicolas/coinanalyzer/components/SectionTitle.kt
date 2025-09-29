@@ -1,5 +1,6 @@
 package potel.nicolas.coinanalyzer.components
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ fun SectionTitle(content: String) {
         fontSize = 20.sp,
         fontWeight = FontWeight.Medium,
         modifier = Modifier
+            .padding(vertical = 8.dp)
             .drawBehind {
                 val gradient = Brush.horizontalGradient(
                     colors = listOf(applicationTheme.primary, applicationTheme.secondary)
