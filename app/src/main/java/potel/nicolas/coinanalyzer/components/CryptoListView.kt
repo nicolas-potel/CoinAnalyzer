@@ -40,14 +40,16 @@ fun CryptoListView(crypto : Crypto) {
 
     val percentDiff: Double = (crypto.price - crypto.lastPrice)/crypto.lastPrice * 100
 
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .border(
-            width = 1.dp,
-            color = applicationTheme.fontSecondary,
-            shape = RoundedCornerShape(42.dp)
-        )
-        .padding(horizontal = 16.dp, vertical = 12.dp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .border(
+                width = 1.dp,
+                color = applicationTheme.fontSecondary,
+                shape = RoundedCornerShape(42.dp)
+            )
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         // Crypto icon
         AsyncImage(

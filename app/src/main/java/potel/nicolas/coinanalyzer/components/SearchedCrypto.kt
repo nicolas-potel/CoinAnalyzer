@@ -25,6 +25,7 @@ import potel.nicolas.coinanalyzer.util.capitalizeFirstLetter
 @Composable
 fun SearchedCrypto(crypto : Crypto) {
     Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .background(
                 color = applicationTheme.tertiary,
@@ -42,12 +43,10 @@ fun SearchedCrypto(crypto : Crypto) {
             model = crypto.imageLink,
             contentDescription = "Searched crypto ${crypto.name}"
         )
-        Box(modifier = Modifier.align(Alignment.CenterVertically)) {
-            Text(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                text = capitalizeFirstLetter(crypto.name)
-            )
-        }
+        Text(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            text = capitalizeFirstLetter(crypto.name)
+        )
     }
 }
