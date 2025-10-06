@@ -1,12 +1,23 @@
 package potel.nicolas.coinanalyzer.model
 
+import androidx.compose.ui.graphics.Color
+import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+
 data class Crypto(
     val name: String,
     val symbol: String,
     val imageLink: String,
     val price: Double,
     val lastPrice: Double,
-    val favorite: Boolean
+    val favorite: Boolean,
+
+    // Calculated attributes
+    val percentDiff : Double = (price - lastPrice)/lastPrice * 100,
+    val increase : Boolean = price >= lastPrice,
+    val priceColor: Color = if (increase)
+        applicationTheme.increase
+    else
+        applicationTheme.decrease
 )
 
 // EXAMPLES TO BE REMOVED

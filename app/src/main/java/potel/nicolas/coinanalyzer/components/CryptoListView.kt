@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -18,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
@@ -32,17 +30,9 @@ import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
 fun CryptoListView(crypto : Crypto) {
-    val increase: Boolean = crypto.price >= crypto.lastPrice
-    val priceColor: Color = if (increase)
-        applicationTheme.increase
-    else
-        applicationTheme.decrease
-
-    val percentDiff: Double = (crypto.price - crypto.lastPrice)/crypto.lastPrice * 100
 
     Row(
         modifier = Modifier
-            .fillMaxWidth()
             .border(
                 width = 1.dp,
                 color = applicationTheme.fontSecondary,
@@ -97,9 +87,9 @@ fun CryptoListView(crypto : Crypto) {
             Text(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = priceColor,
-                text = (if (increase) "+" else "")
-                        + String.format("%.2f", percentDiff)
+                color = crypto.priceColor,
+                text = (if (crypto.increase) "+" else "")
+                        + String.format("%.2f", crypto.percentDiff)
                         + "%"
             )
         }
@@ -117,9 +107,9 @@ fun CryptoListView(crypto : Crypto) {
         // Increase / decrease icon
         Icon(
             imageVector = ImageVector.vectorResource(
-                id = if (increase) R.drawable.trending_up else R.drawable.trending_down
+                id = if (crypto.increase) R.drawable.trending_up else R.drawable.trending_down
             ),
-            tint = priceColor,
+            tint = crypto.priceColor,
             contentDescription = "Increase/decrease icon displayer",
             modifier = Modifier
                 .size(28.dp)
