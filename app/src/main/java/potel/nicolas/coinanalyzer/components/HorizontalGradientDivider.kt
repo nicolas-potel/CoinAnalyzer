@@ -15,7 +15,7 @@ import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 @Composable
 fun HorizontalGradientDivider(
     modifier: Modifier = Modifier,
-    thickness: Dp = 2.dp,
+    thickness: Dp = 4.dp,
     startColor: Color = applicationTheme.primary,
     endColor: Color = applicationTheme.secondary
 ) {

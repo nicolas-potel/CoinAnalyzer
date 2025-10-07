@@ -17,7 +17,9 @@ import potel.nicolas.coinanalyzer.model.crypto3
 
 @Composable
 fun SearchPage() {
-    Column {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         SectionTitle(stringResource(id = R.string.page_search))
         FlowRow(
             modifier = Modifier.fillMaxWidth(),

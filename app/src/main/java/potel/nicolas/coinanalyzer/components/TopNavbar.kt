@@ -15,13 +15,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
+import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 // Because we don't mind using experimental API for this project.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopNavbar(drawerState: DrawerState) {
+fun TopNavbar(navController : NavHostController, drawerState: DrawerState) {
 
     val scope = rememberCoroutineScope()
     val iconSize = 28
@@ -50,7 +52,16 @@ fun TopNavbar(drawerState: DrawerState) {
             }
         },
         actions = {
-            IconButton(onClick = {}) {
+            IconButton(
+                onClick = {
+                    navController.navigate(Routes.SEARCH)
+                    scope.launch {
+                        drawerState.apply {
+                            drawerState.close()
+                        }
+                    }
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search navbar Icon",
@@ -58,7 +69,17 @@ fun TopNavbar(drawerState: DrawerState) {
                     tint = iconColor,
                 )
             }
-            IconButton(onClick = {}) {
+
+            IconButton(
+                onClick = {
+                    navController.navigate(Routes.SETTINGS)
+                    scope.launch {
+                        drawerState.apply {
+                            drawerState.close()
+                        }
+                    }
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Default.Settings,
                     contentDescription = "Settings navbar Icon",

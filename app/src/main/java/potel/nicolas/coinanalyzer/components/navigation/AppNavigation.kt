@@ -1,4 +1,4 @@
-package potel.nicolas.coinanalyzer.components
+package potel.nicolas.coinanalyzer.components.navigation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,9 +10,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import potel.nicolas.coinanalyzer.config.Routes
+import potel.nicolas.coinanalyzer.pages.CoinsPage
+import potel.nicolas.coinanalyzer.pages.CurrenciesPage
 import potel.nicolas.coinanalyzer.pages.FavoritesPage
 import potel.nicolas.coinanalyzer.pages.HomePage
+import potel.nicolas.coinanalyzer.pages.LanguagesPage
+import potel.nicolas.coinanalyzer.pages.OverviewPage
 import potel.nicolas.coinanalyzer.pages.SearchPage
+import potel.nicolas.coinanalyzer.pages.SettingsPage
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier, navController : NavHostController) {
@@ -25,15 +30,14 @@ fun AppNavigation(modifier: Modifier = Modifier, navController : NavHostControll
             navController = navController,
             startDestination = Routes.HOME
         ) {
-            composable(Routes.HOME) {
-                HomePage()
-            }
-            composable(Routes.FAVORITES) {
-                FavoritesPage()
-            }
-            composable(Routes.SEARCH) {
-                SearchPage()
-            }
+            composable(Routes.HOME) { HomePage() }
+            composable(Routes.COINS) { CoinsPage() }
+            composable(Routes.FAVORITES) { FavoritesPage() }
+            composable(Routes.OVERVIEW) { OverviewPage() }
+            composable(Routes.SEARCH) { SearchPage() }
+            composable(Routes.SETTINGS) { SettingsPage() }
+            composable(Routes.CURRENCIES) { CurrenciesPage() }
+            composable(Routes.LANGUAGES) { LanguagesPage() }
         }
     }
 }

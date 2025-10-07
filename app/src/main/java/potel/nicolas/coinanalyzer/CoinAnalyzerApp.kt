@@ -8,8 +8,8 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import potel.nicolas.coinanalyzer.components.AppNavigation
-import potel.nicolas.coinanalyzer.components.NavigationMenu
+import potel.nicolas.coinanalyzer.components.navigation.AppNavigation
+import potel.nicolas.coinanalyzer.components.navigation.NavigationMenu
 import potel.nicolas.coinanalyzer.components.TopNavbar
 
 /**
@@ -23,11 +23,11 @@ fun CoinAnalyzerApp() {
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            NavigationMenu(navController)
+            NavigationMenu(navController, drawerState)
         },
     ) {
         Scaffold(
-            topBar = { TopNavbar(drawerState = drawerState) },
+            topBar = { TopNavbar(navController, drawerState) },
         ) { innerPadding ->
             AppNavigation(
                 modifier = Modifier

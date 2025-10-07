@@ -18,20 +18,19 @@ import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 @Composable
 fun SectionTitle(content: String) {
     Text(
-        text = content,
+        text = "$content   ",
         fontSize = 20.sp,
         fontWeight = FontWeight.Medium,
         modifier = Modifier
-            .padding(vertical = 8.dp)
             .drawBehind {
                 val gradient = Brush.horizontalGradient(
                     colors = listOf(applicationTheme.primary, applicationTheme.secondary)
                 )
                 drawLine(
                     brush = gradient,
+                    strokeWidth = 4.dp.toPx(),
                     start = Offset(0f, size.height),
-                    end = Offset(size.width + 14.dp.toPx(), size.height),
-                    strokeWidth = 4.dp.toPx()
+                    end = Offset(size.width, size.height),
                 )
             }
     )

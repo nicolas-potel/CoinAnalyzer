@@ -6,7 +6,8 @@
 
 [<span style="color:green">+</span>] Création du projet, initialisation des dépendances.
 
-<b>Utilisation de l'IA</b> : suggestion des versions à utiliser pour certaines dépendances.
+<b>Utilisation de l'IA</b> : 
+- suggestion des versions à utiliser pour certaines dépendances.
 
 ### Semaine du 15/09/2025
 
@@ -15,7 +16,10 @@
 [<span style="color:green">+</span>] Création du composant SectionTitle
 [<span style="color:green">+</span>] Mise en place du thème de l'application
 
-<b>Utilisation de l'IA</b> : pour ajouter la typographie, pour diverses questions de syntaxe, pour ajouter l'icône de l'application et pour le debugging du composant SectionTitle
+<b>Utilisation de l'IA</b> : 
+- pour ajouter la typographie
+- pour diverses questions de syntaxe
+- pour ajouter l'icône de l'application et pour le debugging du composant SectionTitle
 
 ### Semaine du 22/09/2025
 
@@ -29,10 +33,18 @@ Pas de séance cette semaine.
 [<span style="color:green">+</span>] Composant CryptoListView pour l'affichage en liste
 [<span style="color:green">+</span>] Ajout des icônes (favoris, partager, trending up & down)
 
-<b>Utilisation de l'IA</b> : pour diverses questions de syntaxe, pour le debugging d'une dépendance qui n'arrivait pas à fonctionner, pour l'ajout d'un vector au projet pour les icônes
+<b>Utilisation de l'IA</b> : 
+- pour diverses questions de syntaxe
+- pour le debugging d'une dépendance qui n'arrivait pas à fonctionner
+- pour l'ajout d'un vector au projet pour les icônes
 
 ### Semaine du 06/10/2025
 
 [<span style="color:green">+</span>] Composant CryptoGridView pour l'affichage en grid.
+[<span style="color:green">+</span>] Composant TopNavbar pour la barre de navigation en haut de l'écran
+[<span style="color:green">+</span>] Composant NavigationMenu pour pouvoir voyager entre les pages
 
-<b>Utilisation de l'IA</b> : pour diverses questions de syntaxe, pour l'affichage de plusieurs éléments en liste sur une même ligne (pour l'affichage en grid)
+<b>Utilisation de l'IA</b> : 
+- pour diverses questions de syntaxe
+- pour l'affichage de plusieurs éléments en liste sur une même ligne (pour l'affichage en grid)
+- pour la gestion des paddings des différents composants
