@@ -18,7 +18,7 @@ import potel.nicolas.coinanalyzer.model.crypto2
 import potel.nicolas.coinanalyzer.model.crypto3
 
 @Composable
-fun HomePage(navController: NavHostController) {
+fun HomePage() {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
