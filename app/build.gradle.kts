@@ -36,15 +36,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/gradle/incremental.annotation.processors"
         }
     }
 }
@@ -61,9 +62,13 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.compose.ui)
+
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
+    implementation(libs.datastore.preferences)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     testImplementation(libs.junit)
 
