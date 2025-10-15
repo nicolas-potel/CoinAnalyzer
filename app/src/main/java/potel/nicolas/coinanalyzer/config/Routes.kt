@@ -10,3 +10,8 @@ object Routes {
     const val LANGUAGES = "languages"
     const val CURRENCIES = "currencies"
 }
+
+val PagesWithoutTopBar = listOf(
+    Routes.CURRENCIES,
+    Routes.LANGUAGES
+)

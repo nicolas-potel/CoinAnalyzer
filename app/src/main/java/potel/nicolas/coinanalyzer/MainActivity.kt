@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         startKoin {
-            androidContext(this@MainActivity) // important pour Koin Android
+            androidContext(this@MainActivity)
             modules(KoinModule)
         }
 

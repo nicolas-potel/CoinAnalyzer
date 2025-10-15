@@ -35,9 +35,9 @@ fun AppNavigation(modifier: Modifier = Modifier, navController : NavHostControll
             composable(Routes.FAVORITES) { FavoritesPage() }
             composable(Routes.OVERVIEW) { OverviewPage() }
             composable(Routes.SEARCH) { SearchPage() }
-            composable(Routes.SETTINGS) { SettingsPage() }
-            composable(Routes.CURRENCIES) { CurrenciesPage() }
-            composable(Routes.LANGUAGES) { LanguagesPage() }
+            composable(Routes.SETTINGS) { SettingsPage(navController) }
+            composable(Routes.CURRENCIES) { CurrenciesPage(navController) }
+            composable(Routes.LANGUAGES) { LanguagesPage(navController) }
         }
     }
 }

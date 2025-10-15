@@ -18,7 +18,7 @@ import potel.nicolas.coinanalyzer.model.crypto3
 
 @Composable
 fun HomePage() {
-    Column(
+    Column (
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         SectionTitle(stringResource(id = R.string.page_home))
