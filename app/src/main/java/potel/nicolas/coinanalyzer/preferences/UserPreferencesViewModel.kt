@@ -1,6 +1,5 @@
 package potel.nicolas.coinanalyzer.preferences
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -9,7 +8,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.model.Currency
-import java.util.Locale
 
 
 class UserPreferencesViewModel (
@@ -48,23 +46,6 @@ class UserPreferencesViewModel (
     fun setCurrency(newCurrency : Currency) {
         viewModelScope.launch {
             repository.setCurrency(newCurrency.displayName)
-        }
-    }
-
-    /**
-     * Language handling.
-     */
-    val currentLanguage: StateFlow<String> =
-        repository.language
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = UserPreferencesDefaultValues.language
-            )
-
-    fun setLanguage(languageCode: String) {
-        viewModelScope.launch {
-            repository.setLanguage(languageCode)
         }
     }
 }

@@ -1,9 +1,5 @@
 package potel.nicolas.coinanalyzer.util
 
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
-import java.util.Locale
-
 /**
  * Takes a string as input and returns it with the first letter capitalized.
  * @param input a string to be modified and returned.

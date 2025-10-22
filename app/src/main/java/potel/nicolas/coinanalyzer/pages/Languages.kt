@@ -16,8 +16,6 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,21 +25,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import org.koin.androidx.compose.getViewModel
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.ModalPage
 import potel.nicolas.coinanalyzer.model.Language
-import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
 fun LanguagesPage(
-    navController : NavHostController,
-    userPreferencesViewModel : UserPreferencesViewModel = getViewModel()
+    navController : NavHostController
 ) {
-    val currentLanguage by userPreferencesViewModel.currentLanguage.collectAsState()
 
     val borderRadius = 12.dp
+    val currentLanguage = "fr"
 
     ModalPage(
         navController,
@@ -61,8 +56,7 @@ fun LanguagesPage(
                             indication = rememberRipple(bounded = true)
                         ) {
                             if (currentLanguage != language.symbol) {
-                                userPreferencesViewModel.setLanguage(language.symbol)
-
+                                //userPreferencesViewModel.setLanguage(context, language.symbol)
                             }
                         }
                         .padding(8.dp),

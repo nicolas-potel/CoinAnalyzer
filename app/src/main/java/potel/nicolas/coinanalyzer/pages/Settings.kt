@@ -9,39 +9,40 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import org.koin.androidx.compose.getViewModel
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.config.Routes
-import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.LanguageHandler
 
 
 @Composable
 fun SettingsPage(
-    navController: NavHostController,
-    userPreferencesViewModel : UserPreferencesViewModel = getViewModel(),
+    navController: NavHostController
 ) {
 
-    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
-    val currentLanguage by userPreferencesViewModel.currentLanguage.collectAsState()
-
     val borderRadius = 12.dp
+
+    val languageHandler by lazy {
+        LanguageHandler()
+    }
+
+    val context = LocalContext.current.applicationContext
 
     Column {
         SectionTitle(stringResource(id = R.string.page_settings))
@@ -72,7 +73,7 @@ fun SettingsPage(
                     .padding(horizontal = 8.dp)
             ){
                 Text(
-                    text = selectedCurrency,
+                    text = "not defined",
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp
                 )
@@ -110,7 +111,7 @@ fun SettingsPage(
                     .padding(horizontal = 8.dp)
             ){
                 Text(
-                    text = currentLanguage.uppercase(),
+                    text = languageHandler.getLanguageCode(context).uppercase(),
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp
                 )
@@ -119,6 +120,19 @@ fun SettingsPage(
                     modifier = Modifier.size(24.dp),
                     contentDescription = "arrow"
                 )
+            }
+        }
+
+        Row {
+            Button(onClick = {
+                languageHandler.setLanguage(context, "fr")
+            }) {
+                Text("French")
+            }
+            Button(onClick = {
+                languageHandler.setLanguage(context, "en")
+            }) {
+                Text("English")
             }
         }
     }
