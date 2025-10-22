@@ -24,24 +24,21 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.config.Routes
-import potel.nicolas.coinanalyzer.util.LanguageHandler
+import potel.nicolas.coinanalyzer.preferences.LanguageViewModel
 
 
 @Composable
 fun SettingsPage(
-    navController: NavHostController
+    navController: NavHostController,
+    languageViewModel: LanguageViewModel = viewModel()
 ) {
 
     val borderRadius = 12.dp
-
-    val languageHandler by lazy {
-        LanguageHandler()
-    }
-
     val context = LocalContext.current.applicationContext
 
     Column {
@@ -111,7 +108,7 @@ fun SettingsPage(
                     .padding(horizontal = 8.dp)
             ){
                 Text(
-                    text = languageHandler.getLanguageCode(context).uppercase(),
+                    text = languageViewModel.getLanguageCode(context).uppercase(),
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp
                 )
@@ -125,12 +122,12 @@ fun SettingsPage(
 
         Row {
             Button(onClick = {
-                languageHandler.setLanguage(context, "fr")
+                languageViewModel.setLanguage(context, "fr-FR")
             }) {
                 Text("French")
             }
             Button(onClick = {
-                languageHandler.setLanguage(context, "en")
+                languageViewModel.setLanguage(context, "en-US")
             }) {
                 Text("English")
             }

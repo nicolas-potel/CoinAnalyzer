@@ -3,6 +3,8 @@ package potel.nicolas.coinanalyzer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.viewmodel.compose.viewModel
+import potel.nicolas.coinanalyzer.components.AppLanguageWrapper
 import potel.nicolas.coinanalyzer.ui.theme.ApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -12,7 +14,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ApplicationTheme {
-                CoinAnalyzerApp()
+                AppLanguageWrapper(
+                    content = { CoinAnalyzerApp() },
+                    languageViewModel = viewModel()
+                )
             }
         }
     }
