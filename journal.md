@@ -63,6 +63,7 @@ Pas de séance cette semaine.
 
 [<span style="color:green">+</span>] Changement de langue de l'application terminé + page de choix de langue.
 [<span style="color:green">+</span>] Choix de conception : API minimale passée à 33 car envisager les APIs en dessous nécessite une façon différente de changer de langue, et donc une complexité accrue du code.
+[<span style="color:green">+</span>] Composant Switch pour la vue en Grille ou en Liste.
 
 <b>Utilisation de l'IA</b> : 
 - pour diverses questions de syntaxe
