@@ -48,6 +48,10 @@ android {
             excludes += "META-INF/gradle/incremental.annotation.processors"
         }
     }
+
+    androidResources {
+        generateLocaleConfig = true
+    }
 }
 
 dependencies {
@@ -67,8 +71,7 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.datastore.preferences)
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
+    implementation(libs.androidx.appcompat)
 
     testImplementation(libs.junit)
 

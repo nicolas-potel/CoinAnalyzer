@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.map
 
-class UserPreferencesRepository(private val context: Context) {
+class UserPreferencesRepository(
+    private val context: Context
+) {
 
     /**
      * List view handling.
@@ -29,19 +31,6 @@ class UserPreferencesRepository(private val context: Context) {
     suspend fun setCurrency(newCurrency: String) {
         context.userPreferencesDataStore.edit { preferences ->
             preferences[UserPreferencesKeys.CURRENCY] = newCurrency
-        }
-    }
-
-    /**
-     * Language handling.
-     */
-    val language = context.userPreferencesDataStore.data.map { preferences ->
-        preferences[UserPreferencesKeys.LANGUAGE] ?: UserPreferencesDefaultValues.language
-    }
-
-    suspend fun setLanguage(newLanguage: String) {
-        context.userPreferencesDataStore.edit { preferences ->
-            preferences[UserPreferencesKeys.LANGUAGE] = newLanguage
         }
     }
 }

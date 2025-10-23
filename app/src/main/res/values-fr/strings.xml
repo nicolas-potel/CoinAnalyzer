@@ -1,0 +1,6 @@
+<resources>
+    <!--
+    French is default application language, all its
+    strings are defined in the values/strings.xml file.
+    -->
+</resources>
