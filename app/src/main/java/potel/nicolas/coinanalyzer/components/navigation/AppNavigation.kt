@@ -18,9 +18,14 @@ import potel.nicolas.coinanalyzer.pages.LanguagesPage
 import potel.nicolas.coinanalyzer.pages.OverviewPage
 import potel.nicolas.coinanalyzer.pages.SearchPage
 import potel.nicolas.coinanalyzer.pages.SettingsPage
+import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 @Composable
-fun AppNavigation(modifier: Modifier = Modifier, navController : NavHostController) {
+fun AppNavigation(
+    modifier: Modifier = Modifier,
+    navController : NavHostController,
+    userPreferencesViewModel: UserPreferencesViewModel
+) {
 
     Box(modifier = modifier
         .fillMaxSize()
@@ -35,8 +40,8 @@ fun AppNavigation(modifier: Modifier = Modifier, navController : NavHostControll
             composable(Routes.FAVORITES) { FavoritesPage() }
             composable(Routes.OVERVIEW) { OverviewPage() }
             composable(Routes.SEARCH) { SearchPage() }
-            composable(Routes.SETTINGS) { SettingsPage(navController) }
-            composable(Routes.CURRENCIES) { CurrenciesPage(navController) }
+            composable(Routes.SETTINGS) { SettingsPage(navController, userPreferencesViewModel) }
+            composable(Routes.CURRENCIES) { CurrenciesPage(navController, userPreferencesViewModel) }
             composable(Routes.LANGUAGES) { LanguagesPage(navController) }
         }
     }

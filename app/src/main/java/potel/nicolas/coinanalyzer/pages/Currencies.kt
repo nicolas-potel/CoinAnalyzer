@@ -27,7 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import org.koin.androidx.compose.getViewModel
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.ModalPage
 import potel.nicolas.coinanalyzer.model.Currency
@@ -37,11 +36,10 @@ import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 @Composable
 fun CurrenciesPage(
     navController: NavHostController,
-    userPreferencesViewModel : UserPreferencesViewModel = getViewModel()
+    userPreferencesViewModel: UserPreferencesViewModel
 ) {
-    val selectedCurrency : String by userPreferencesViewModel.currency.collectAsState()
-
     val borderRadius = 12.dp
+    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
 
     ModalPage(
         navController,
