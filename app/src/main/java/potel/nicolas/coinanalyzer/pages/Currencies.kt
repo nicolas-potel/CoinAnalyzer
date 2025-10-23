@@ -30,15 +30,16 @@ import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.ModalPage
 import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
 fun CurrenciesPage(
-    navController: NavHostController
+    navController: NavHostController,
+    userPreferencesViewModel: UserPreferencesViewModel
 ) {
     val borderRadius = 12.dp
-
-    val selectedCurrency = ""
+    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
 
     ModalPage(
         navController,
@@ -58,7 +59,7 @@ fun CurrenciesPage(
                             indication = rememberRipple(bounded = true)
                         ) {
                             if (selectedCurrency != currency.displayName) {
-                                //userPreferencesViewModel.setCurrency(currency)
+                                userPreferencesViewModel.setCurrency(currency)
                             }
                         }
                         .padding(8.dp),

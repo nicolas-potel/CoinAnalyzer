@@ -1,6 +1,5 @@
 package potel.nicolas.coinanalyzer.pages
 
-import android.app.Activity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -10,10 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,16 +31,20 @@ import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.preferences.LanguageViewModel
+import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 
 @Composable
 fun SettingsPage(
     navController: NavHostController,
+    userPreferencesViewModel: UserPreferencesViewModel,
     languageViewModel: LanguageViewModel = viewModel()
 ) {
 
     val borderRadius = 12.dp
     val context = LocalContext.current
+
+    val currency by userPreferencesViewModel.currency.collectAsState()
 
     Column {
         SectionTitle(stringResource(id = R.string.page_settings))
@@ -71,7 +75,7 @@ fun SettingsPage(
                     .padding(horizontal = 8.dp)
             ){
                 Text(
-                    text = "not defined",
+                    text = currency,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp
                 )

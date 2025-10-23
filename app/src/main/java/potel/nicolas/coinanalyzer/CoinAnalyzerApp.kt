@@ -14,12 +14,15 @@ import potel.nicolas.coinanalyzer.components.navigation.AppNavigation
 import potel.nicolas.coinanalyzer.components.navigation.NavigationMenu
 import potel.nicolas.coinanalyzer.components.TopNavbar
 import potel.nicolas.coinanalyzer.config.PagesWithoutTopBar
+import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 /**
  * Main component for Coin Analyzer application.
  */
 @Composable
-fun CoinAnalyzerApp() {
+fun CoinAnalyzerApp(
+    userPreferencesViewModel: UserPreferencesViewModel
+) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
@@ -42,7 +45,8 @@ fun CoinAnalyzerApp() {
             AppNavigation(
                 modifier = Modifier
                     .padding(innerPadding),
-                navController
+                navController,
+                userPreferencesViewModel
             )
         }
     }
