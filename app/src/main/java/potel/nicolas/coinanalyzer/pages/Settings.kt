@@ -119,18 +119,5 @@ fun SettingsPage(
                 )
             }
         }
-
-        Row {
-            Button(onClick = {
-                languageViewModel.setLanguage(context, "fr-FR")
-            }) {
-                Text("French")
-            }
-            Button(onClick = {
-                languageViewModel.setLanguage(context, "en-US")
-            }) {
-                Text("English")
-            }
-        }
     }
 }
