@@ -1,5 +1,6 @@
 package potel.nicolas.coinanalyzer.pages
 
+import android.app.Activity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -39,7 +40,7 @@ fun SettingsPage(
 ) {
 
     val borderRadius = 12.dp
-    val context = LocalContext.current.applicationContext
+    val context = LocalContext.current
 
     Column {
         SectionTitle(stringResource(id = R.string.page_settings))
