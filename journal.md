@@ -48,3 +48,23 @@ Pas de séance cette semaine.
 - pour diverses questions de syntaxe
 - pour l'affichage de plusieurs éléments en liste sur une même ligne (pour l'affichage en grid)
 - pour la gestion des paddings des différents composants
+
+### Semaine du 13/10/2025
+
+[<span style="color:green">+</span>] ViewModel et configuration locale avec un DataStore pour les préférences utilisateur.
+[<span style="color:green">+</span>] Début de la page de choix de la langue + recherches sur les possibilités pour changer la langue de l'application.
+
+<b>Utilisation de l'IA</b> : 
+- pour diverses questions de syntaxe
+- pour la création d'un datastore et d'un ViewModel
+- pour du debug sur le changement de langue d'une application
+
+### Semaine du 20/10/2025
+
+[<span style="color:green">+</span>] Changement de langue de l'application terminé + page de choix de langue.
+[<span style="color:green">+</span>] Choix de conception : API minimale passée à 33 car envisager les APIs en dessous nécessite une façon différente de changer de langue, et donc une complexité accrue du code.
+
+<b>Utilisation de l'IA</b> : 
+- pour diverses questions de syntaxe
+- pour du debug sur le changement de langue d'une application
+
