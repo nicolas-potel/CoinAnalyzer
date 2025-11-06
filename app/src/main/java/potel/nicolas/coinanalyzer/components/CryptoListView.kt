@@ -1,13 +1,12 @@
 package potel.nicolas.coinanalyzer.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
@@ -16,14 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.model.CryptoData
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
@@ -51,21 +47,11 @@ fun CryptoListView(crypto : CryptoData) {
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Crypto icon
-        AsyncImage(
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .padding(end = 10.dp)
-                .size(48.dp)
-                .aspectRatio(1f)
-                .clip(CircleShape),
-            model = "https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png",
-            contentDescription = "Crypto List View ${crypto.name}"
-        )
+        CryptoIcon(crypto)
 
-        Column() {
+        Column {
+
             Row {
-
                 // Crypto Symbol
                 Text(
                     fontSize = 20.sp,
@@ -93,6 +79,7 @@ fun CryptoListView(crypto : CryptoData) {
                         .align(Alignment.CenterVertically)
                 )
             }
+
             // Price diff in percent
             Text(
                 fontSize = 16.sp,
@@ -109,7 +96,7 @@ fun CryptoListView(crypto : CryptoData) {
         Text(
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
-            text = "${String.format("%.3f", quote.price)}$",
+            text = "${String.format("%.2f", quote.price)}$",
             modifier = Modifier
                 .align(Alignment.CenterVertically)
         )
