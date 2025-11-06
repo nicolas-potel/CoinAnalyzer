@@ -18,12 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import potel.nicolas.coinanalyzer.model.Crypto
+import potel.nicolas.coinanalyzer.model.CryptoData
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 import potel.nicolas.coinanalyzer.util.capitalizeFirstLetter
 
 @Composable
-fun SearchedCrypto(crypto : Crypto) {
+fun SearchedCrypto(crypto : CryptoData) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -40,7 +40,7 @@ fun SearchedCrypto(crypto : Crypto) {
                 .size(30.dp)
                 .aspectRatio(1f)
                 .clip(CircleShape),
-            model = crypto.imageLink,
+            model = "TO DO",
             contentDescription = "Searched crypto ${crypto.name}"
         )
         Text(

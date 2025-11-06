@@ -11,9 +11,6 @@ import androidx.compose.ui.unit.dp
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.SearchedCrypto
 import potel.nicolas.coinanalyzer.components.SectionTitle
-import potel.nicolas.coinanalyzer.model.crypto1
-import potel.nicolas.coinanalyzer.model.crypto2
-import potel.nicolas.coinanalyzer.model.crypto3
 
 @Composable
 fun SearchPage() {
@@ -26,11 +23,13 @@ fun SearchPage() {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            /*
             SearchedCrypto(crypto1)
             SearchedCrypto(crypto2)
             SearchedCrypto(crypto1)
             SearchedCrypto(crypto2)
             SearchedCrypto(crypto3)
+             */
         }
     }
 }

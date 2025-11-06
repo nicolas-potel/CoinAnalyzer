@@ -1,7 +1,12 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
+
+val apiKey = gradleLocalProperties(rootDir, providers)
+    .getProperty("API_KEY", "")
 
 android {
     namespace = "potel.nicolas.coinanalyzer"
@@ -18,6 +23,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "API_KEY", "\"${apiKey}\"")
     }
 
     buildTypes {
@@ -41,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -76,7 +84,6 @@ dependencies {
     implementation (libs.moshi)
     implementation (libs.moshi.kotlin)
     implementation (libs.converter.moshi)
-
 
     implementation(libs.datastore.preferences)
 

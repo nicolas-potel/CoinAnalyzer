@@ -4,37 +4,37 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import potel.nicolas.coinanalyzer.R
+import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.CryptoGridView
 import potel.nicolas.coinanalyzer.components.CryptoListView
 import potel.nicolas.coinanalyzer.components.SectionTitle
-import potel.nicolas.coinanalyzer.model.crypto1
-import potel.nicolas.coinanalyzer.model.crypto2
-import potel.nicolas.coinanalyzer.model.crypto3
 
 @Composable
-fun HomePage() {
-    Column (
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        SectionTitle(stringResource(id = R.string.page_home))
-        CryptoListView(crypto1)
-        CryptoListView(crypto2)
-        CryptoListView(crypto3)
+fun HomePage(
+    cryptoViewModel: CryptoViewModel = viewModel()
+) {
+    val cryptos = cryptoViewModel.cryptos.collectAsState().value
 
-        FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            CryptoGridView(crypto1)
-            CryptoGridView(crypto2)
-            CryptoGridView(crypto3)
-            CryptoGridView(crypto3)
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        item {
+            SectionTitle(stringResource(id = R.string.page_home))
+        }
+
+        items(cryptos) { crypto ->
+            CryptoListView(crypto)
         }
     }
+
+
 }

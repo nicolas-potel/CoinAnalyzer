@@ -26,11 +26,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import potel.nicolas.coinanalyzer.R
-import potel.nicolas.coinanalyzer.model.Crypto
+import potel.nicolas.coinanalyzer.model.CryptoData
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
-fun CryptoGridView(crypto : Crypto) {
+fun CryptoGridView(crypto : CryptoData) {
+
+    val quote = crypto.quote["USD"]!!
+    val percentDiff = quote.percentChange1h
+
+    val percentDiffColor = if (percentDiff >= 0)
+        applicationTheme.increase
+    else
+        applicationTheme.decrease
 
     Column(
         modifier = Modifier
@@ -57,7 +65,7 @@ fun CryptoGridView(crypto : Crypto) {
                     .size(48.dp)
                     .aspectRatio(1f)
                     .clip(CircleShape),
-                model = crypto.imageLink,
+                model = "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png",
                 contentDescription = "Crypto List View ${crypto.name}"
             )
 
@@ -75,7 +83,7 @@ fun CryptoGridView(crypto : Crypto) {
                     // Actions (favorite / share)
                     Icon(
                         imageVector = ImageVector.vectorResource(
-                            id = if (crypto.favorite) R.drawable.bookmark else R.drawable.bookmark_border
+                            id = if (true) R.drawable.bookmark else R.drawable.bookmark_border
                         ),
                         contentDescription = "Add ${crypto.name} to favorites",
                         tint = applicationTheme.primary,
@@ -96,9 +104,9 @@ fun CryptoGridView(crypto : Crypto) {
                 Text(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = crypto.priceColor,
-                    text = (if (crypto.increase) "+" else "")
-                            + String.format("%.2f", crypto.percentDiff)
+                    color = percentDiffColor,
+                    text = (if (percentDiff >= 0) "+" else "")
+                            + String.format("%.3f", percentDiff)
                             + "%"
                 )
 
@@ -112,7 +120,7 @@ fun CryptoGridView(crypto : Crypto) {
             Text(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
-                text = "${crypto.price}$",
+                text = "${quote.price}$",
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
             )
@@ -120,9 +128,9 @@ fun CryptoGridView(crypto : Crypto) {
             // Increase / decrease icon
             Icon(
                 imageVector = ImageVector.vectorResource(
-                    id = if (crypto.increase) R.drawable.trending_up else R.drawable.trending_down
+                    id = if (true) R.drawable.trending_up else R.drawable.trending_down
                 ),
-                tint = crypto.priceColor,
+                tint = percentDiffColor,
                 contentDescription = "Increase/decrease icon displayer",
                 modifier = Modifier
                     .size(28.dp)
