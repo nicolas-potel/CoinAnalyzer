@@ -3,6 +3,7 @@ package potel.nicolas.coinanalyzer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesRepository
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.ui.theme.ApplicationTheme
@@ -18,10 +19,11 @@ class MainActivity : ComponentActivity() {
 
         // ViewModels
         val userPreferencesViewModel = UserPreferencesViewModel(userPreferenciesRepository)
+        val cryptoViewModel = CryptoViewModel(userPreferencesViewModel)
 
         setContent {
             ApplicationTheme {
-                CoinAnalyzerApp(userPreferencesViewModel)
+                CoinAnalyzerApp(userPreferencesViewModel, cryptoViewModel)
             }
         }
     }

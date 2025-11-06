@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.pages.CoinsPage
 import potel.nicolas.coinanalyzer.pages.CurrenciesPage
@@ -24,7 +25,8 @@ import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 fun AppNavigation(
     modifier: Modifier = Modifier,
     navController : NavHostController,
-    userPreferencesViewModel: UserPreferencesViewModel
+    userPreferencesViewModel: UserPreferencesViewModel,
+    cryptoViewModel: CryptoViewModel
 ) {
 
     Box(modifier = modifier
@@ -35,7 +37,7 @@ fun AppNavigation(
             navController = navController,
             startDestination = Routes.HOME
         ) {
-            composable(Routes.HOME) { HomePage(userPreferencesViewModel) }
+            composable(Routes.HOME) { HomePage(userPreferencesViewModel, cryptoViewModel) }
             composable(Routes.COINS) { CoinsPage() }
             composable(Routes.FAVORITES) { FavoritesPage() }
             composable(Routes.OVERVIEW) { OverviewPage() }

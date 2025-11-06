@@ -30,7 +30,7 @@ fun CryptoListView(
     currency: Currency
 ) {
 
-    val quote = crypto.quote["USD"]!!
+    val quote = crypto.quote[currency.symbol]!!
     val percentDiff = quote.percentChange1h
 
     val percentDiffColor = if (percentDiff > 0)

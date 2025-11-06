@@ -24,7 +24,7 @@ import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 @Composable
 fun HomePage(
     userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel = viewModel()
+    cryptoViewModel: CryptoViewModel
 ) {
     val currency by userPreferencesViewModel.currency.collectAsState()
     val cryptos = cryptoViewModel.cryptos.collectAsState().value
