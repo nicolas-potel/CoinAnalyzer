@@ -3,6 +3,7 @@ package potel.nicolas.coinanalyzer.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,18 +24,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.model.CryptoData
+import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
-fun CryptoGridView(crypto : CryptoData) {
+fun CryptoGridView(
+    crypto : CryptoData,
+    currency : Currency
+) {
 
-    val quote = crypto.quote["USD"]!!
+    val quote = crypto.quote[currency.symbol]!!
     val percentDiff = quote.percentChange1h
 
-    val percentDiffColor = if (percentDiff >= 0)
+    val percentDiffColor = if (percentDiff > 0)
         applicationTheme.increase
-    else
+    else if (percentDiff < 0)
         applicationTheme.decrease
+    else
+        applicationTheme.fontSecondary
 
     Column(
         modifier = Modifier
@@ -51,7 +58,9 @@ fun CryptoGridView(crypto : CryptoData) {
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxHeight(0.6f)
+            modifier = Modifier
+                .fillMaxHeight(0.6f)
+                .fillMaxWidth()
         ) {
             CryptoIcon(crypto)
 
@@ -106,7 +115,7 @@ fun CryptoGridView(crypto : CryptoData) {
             Text(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
-                text = "${quote.price}$",
+                text = "${String.format("%.3f", quote.price)}${currency.displayName}",
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
             )
@@ -114,7 +123,7 @@ fun CryptoGridView(crypto : CryptoData) {
             // Increase / decrease icon
             Icon(
                 imageVector = ImageVector.vectorResource(
-                    id = if (true) R.drawable.trending_up else R.drawable.trending_down
+                    id = if (percentDiff >= 0) R.drawable.trending_up else R.drawable.trending_down
                 ),
                 tint = percentDiffColor,
                 contentDescription = "Increase/decrease icon displayer",

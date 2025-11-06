@@ -3,8 +3,12 @@ package potel.nicolas.coinanalyzer.pages
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,20 +30,42 @@ fun HomePage(
     userPreferencesViewModel: UserPreferencesViewModel,
     cryptoViewModel: CryptoViewModel
 ) {
-    val currency by userPreferencesViewModel.currency.collectAsState()
-    val cryptos = cryptoViewModel.cryptos.collectAsState().value
+    val cryptos by cryptoViewModel.cryptos.collectAsState()
+    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
+    val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
 
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+    val currencyAsCurrency = Currency.from(selectedCurrency)
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item {
-            SectionTitle(stringResource(id = R.string.page_home))
-        }
+        SectionTitle(stringResource(id = R.string.page_home))
 
-        items(cryptos) { crypto ->
-            CryptoListView(crypto, Currency.from(currency))
+        if (isListView) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(cryptos) { crypto ->
+                    CryptoListView(crypto, currencyAsCurrency)
+                }
+            }
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(cryptos) { crypto ->
+                    CryptoGridView(crypto, currencyAsCurrency)
+                }
+            }
         }
     }
+
+
 
 
 }

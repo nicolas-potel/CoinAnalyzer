@@ -73,7 +73,7 @@ fun GridListSwitcher(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = stringResource(R.string.settings_view_list),
+                    text = stringResource(R.string.settings_view_grid),
                     color = applicationTheme.font,
                     fontWeight = FontWeight.Medium,
                     fontSize = 15.sp,
@@ -87,7 +87,7 @@ fun GridListSwitcher(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = stringResource(R.string.settings_view_grid),
+                    text = stringResource(R.string.settings_view_list),
                     color = applicationTheme.font,
                     fontWeight = FontWeight.Medium,
                     fontSize = 15.sp,
