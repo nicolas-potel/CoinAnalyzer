@@ -1,6 +1,5 @@
 package potel.nicolas.coinanalyzer.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,10 +21,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.model.CryptoData
+import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
-fun CryptoListView(crypto : CryptoData) {
+fun CryptoListView(
+    crypto : CryptoData,
+    currency: Currency
+) {
 
     val quote = crypto.quote["USD"]!!
     val percentDiff = quote.percentChange1h
@@ -96,7 +99,7 @@ fun CryptoListView(crypto : CryptoData) {
         Text(
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
-            text = "${String.format("%.2f", quote.price)}$",
+            text = "${String.format("%.2f", quote.price)}${currency.displayName}",
             modifier = Modifier
                 .align(Alignment.CenterVertically)
         )

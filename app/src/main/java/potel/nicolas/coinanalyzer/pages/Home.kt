@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -17,11 +18,15 @@ import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.CryptoGridView
 import potel.nicolas.coinanalyzer.components.CryptoListView
 import potel.nicolas.coinanalyzer.components.SectionTitle
+import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 @Composable
 fun HomePage(
+    userPreferencesViewModel: UserPreferencesViewModel,
     cryptoViewModel: CryptoViewModel = viewModel()
 ) {
+    val currency by userPreferencesViewModel.currency.collectAsState()
     val cryptos = cryptoViewModel.cryptos.collectAsState().value
 
     LazyColumn(
@@ -32,7 +37,7 @@ fun HomePage(
         }
 
         items(cryptos) { crypto ->
-            CryptoListView(crypto)
+            CryptoListView(crypto, Currency.from(currency))
         }
     }
 

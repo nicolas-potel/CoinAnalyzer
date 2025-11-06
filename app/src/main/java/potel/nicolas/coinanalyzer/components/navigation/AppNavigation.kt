@@ -35,7 +35,7 @@ fun AppNavigation(
             navController = navController,
             startDestination = Routes.HOME
         ) {
-            composable(Routes.HOME) { HomePage() }
+            composable(Routes.HOME) { HomePage(userPreferencesViewModel) }
             composable(Routes.COINS) { CoinsPage() }
             composable(Routes.FAVORITES) { FavoritesPage() }
             composable(Routes.OVERVIEW) { OverviewPage() }
