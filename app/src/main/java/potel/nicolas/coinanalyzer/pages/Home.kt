@@ -22,13 +22,15 @@ import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.CryptoGridView
 import potel.nicolas.coinanalyzer.components.CryptoListView
 import potel.nicolas.coinanalyzer.components.SectionTitle
+import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 @Composable
 fun HomePage(
     userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel
+    cryptoViewModel: CryptoViewModel,
+    favoriteCryptoViewModel: FavoriteCryptoViewModel
 ) {
     val cryptos by cryptoViewModel.cryptos.collectAsState()
     val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
@@ -48,7 +50,7 @@ fun HomePage(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(cryptos) { crypto ->
-                    CryptoListView(crypto, currencyAsCurrency)
+                    CryptoListView(crypto, currencyAsCurrency, favoriteCryptoViewModel)
                 }
             }
         } else {
@@ -59,13 +61,9 @@ fun HomePage(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(cryptos) { crypto ->
-                    CryptoGridView(crypto, currencyAsCurrency)
+                    CryptoGridView(crypto, currencyAsCurrency, favoriteCryptoViewModel)
                 }
             }
         }
     }
-
-
-
-
 }

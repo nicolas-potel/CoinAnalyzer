@@ -15,6 +15,7 @@ import potel.nicolas.coinanalyzer.components.navigation.AppNavigation
 import potel.nicolas.coinanalyzer.components.navigation.NavigationMenu
 import potel.nicolas.coinanalyzer.components.TopNavbar
 import potel.nicolas.coinanalyzer.config.PagesWithoutTopBar
+import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 /**
@@ -23,7 +24,8 @@ import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 @Composable
 fun CoinAnalyzerApp(
     userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel
+    cryptoViewModel: CryptoViewModel,
+    favoriteCryptoViewModel: FavoriteCryptoViewModel
 ) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -49,7 +51,8 @@ fun CoinAnalyzerApp(
                     .padding(innerPadding),
                 navController,
                 userPreferencesViewModel,
-                cryptoViewModel
+                cryptoViewModel,
+                favoriteCryptoViewModel
             )
         }
     }
