@@ -14,6 +14,6 @@ object UserPreferencesKeys {
 }
 
 object UserPreferencesDefaultValues {
-    val currency = Currency.USD.displayName
+    val currency = Currency.USD.symbol
     val listViewEnabled = true
 }

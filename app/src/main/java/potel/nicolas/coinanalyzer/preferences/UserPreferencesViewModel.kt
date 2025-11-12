@@ -45,7 +45,7 @@ class UserPreferencesViewModel (
 
     fun setCurrency(newCurrency : Currency) {
         viewModelScope.launch {
-            repository.setCurrency(newCurrency.displayName)
+            repository.setCurrency(newCurrency.symbol)
         }
     }
 }

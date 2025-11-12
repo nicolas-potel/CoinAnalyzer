@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,androidstudio,kotlin
 
 local.properties
+.env
 
 ### Kotlin ###
 # Compiled class file

@@ -4,10 +4,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
@@ -16,20 +14,31 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import potel.nicolas.coinanalyzer.R
-import potel.nicolas.coinanalyzer.model.Crypto
+import potel.nicolas.coinanalyzer.model.CryptoData
+import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
-fun CryptoListView(crypto : Crypto) {
+fun CryptoListView(
+    crypto : CryptoData,
+    currency: Currency
+) {
+
+    val quote = crypto.quote[currency.symbol]!!
+    val percentDiff = quote.percentChange1h
+
+    val percentDiffColor = if (percentDiff > 0)
+        applicationTheme.increase
+    else if (percentDiff < 0)
+        applicationTheme.decrease
+    else
+        applicationTheme.fontSecondary
 
     Row(
         modifier = Modifier
@@ -41,21 +50,11 @@ fun CryptoListView(crypto : Crypto) {
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Crypto icon
-        AsyncImage(
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .padding(end = 10.dp)
-                .size(48.dp)
-                .aspectRatio(1f)
-                .clip(CircleShape),
-            model = crypto.imageLink,
-            contentDescription = "Crypto List View ${crypto.name}"
-        )
+        CryptoIcon(crypto)
 
-        Column() {
+        Column {
+
             Row {
-
                 // Crypto Symbol
                 Text(
                     fontSize = 20.sp,
@@ -67,7 +66,7 @@ fun CryptoListView(crypto : Crypto) {
                 // Actions (favorite / share)
                 Icon(
                     imageVector = ImageVector.vectorResource(
-                        id = if (crypto.favorite) R.drawable.bookmark else R.drawable.bookmark_border
+                        id = if (true) R.drawable.bookmark else R.drawable.bookmark_border
                     ),
                     contentDescription = "Add ${crypto.name} to favorites",
                     tint = applicationTheme.primary,
@@ -83,13 +82,14 @@ fun CryptoListView(crypto : Crypto) {
                         .align(Alignment.CenterVertically)
                 )
             }
+
             // Price diff in percent
             Text(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = crypto.priceColor,
-                text = (if (crypto.increase) "+" else "")
-                        + String.format("%.2f", crypto.percentDiff)
+                color = percentDiffColor,
+                text = (if (percentDiff >= 0) "+" else "")
+                        + String.format("%.3f", percentDiff)
                         + "%"
             )
         }
@@ -99,7 +99,7 @@ fun CryptoListView(crypto : Crypto) {
         Text(
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
-            text = "${crypto.price}$",
+            text = "${String.format("%.2f", quote.price)}${currency.displayName}",
             modifier = Modifier
                 .align(Alignment.CenterVertically)
         )
@@ -107,9 +107,9 @@ fun CryptoListView(crypto : Crypto) {
         // Increase / decrease icon
         Icon(
             imageVector = ImageVector.vectorResource(
-                id = if (crypto.increase) R.drawable.trending_up else R.drawable.trending_down
+                id = if (percentDiff >= 0) R.drawable.trending_up else R.drawable.trending_down
             ),
-            tint = crypto.priceColor,
+            tint = percentDiffColor,
             contentDescription = "Increase/decrease icon displayer",
             modifier = Modifier
                 .size(28.dp)

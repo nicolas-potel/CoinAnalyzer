@@ -58,7 +58,7 @@ fun CurrenciesPage(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = rememberRipple(bounded = true)
                         ) {
-                            if (selectedCurrency != currency.displayName) {
+                            if (selectedCurrency != currency.symbol) {
                                 userPreferencesViewModel.setCurrency(currency)
                             }
                         }
@@ -66,12 +66,12 @@ fun CurrenciesPage(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = currency.displayName,
+                        text = currency.symbol,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    if (selectedCurrency == currency.displayName) {
+                    if (selectedCurrency == currency.symbol) {
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = "Selected currency icon",

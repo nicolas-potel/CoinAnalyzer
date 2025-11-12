@@ -69,3 +69,9 @@ Pas de séance cette semaine.
 - pour diverses questions de syntaxe
 - pour du debug sur le changement de langue d'une application
 
+### Semaine du 27/10/2025
+
+Pause pédagogique.
+
+### Semaine du 03/11/2025
+
