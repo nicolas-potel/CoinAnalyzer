@@ -13,7 +13,9 @@ val darkApplicationTheme = ApplicationTheme(
 
     primary = Color(0xFF9338F5),
     secondary = Color(0xFFFC17D4),
-    tertiary = Color(0xFF252728)
+    tertiary = Color(0xFF252728),
+
+    error = Color(0xFFFF2C2C)
 )
 
 val darkColorScheme = darkColorScheme(
@@ -23,5 +25,6 @@ val darkColorScheme = darkColorScheme(
     tertiary = darkApplicationTheme.tertiary,
 
     background = darkApplicationTheme.background,
-    onPrimary = darkApplicationTheme.font
+    onPrimary = darkApplicationTheme.font,
+    error = darkApplicationTheme.error
 )

@@ -18,6 +18,7 @@ import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.CryptoGridView
 import potel.nicolas.coinanalyzer.components.CryptoListView
+import potel.nicolas.coinanalyzer.components.ErrorMessage
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.Currency
@@ -41,7 +42,9 @@ fun CoinsPage(
     ) {
         SectionTitle(stringResource(id = R.string.page_coins))
 
-        if (isListView) {
+        if (cryptos.isEmpty()) {
+            ErrorMessage(stringResource(R.string.coins_no_data))
+        } else if (isListView) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
