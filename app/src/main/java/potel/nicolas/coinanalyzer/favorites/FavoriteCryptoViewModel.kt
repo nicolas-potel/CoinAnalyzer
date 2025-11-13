@@ -2,6 +2,7 @@ package potel.nicolas.coinanalyzer.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -37,7 +38,7 @@ class FavoriteCryptoViewModel(
         }
     }
 
-    suspend fun isFavorite(itemId: Int): Boolean {
-        return repository.isFavorite(itemId)
+    fun isFavorite(itemId: Int): Flow<Boolean> {
+        return repository.isFavoriteFlow(itemId)
     }
 }

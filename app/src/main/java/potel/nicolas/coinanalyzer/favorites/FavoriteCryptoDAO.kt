@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteCryptoDAO {
@@ -18,6 +19,6 @@ interface FavoriteCryptoDAO {
     @Delete
     suspend fun removeFavorite(item: FavoriteCrypto)
 
-    @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE id = :itemId)")
-    suspend fun isFavorite(itemId: Int): Boolean
+    @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE id = :cryptoId)")
+    fun isFavoriteFlow(cryptoId: Int): Flow<Boolean>
 }

@@ -13,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
@@ -36,6 +37,7 @@ fun CryptoListView(
     favoriteCryptoViewModel : FavoriteCryptoViewModel
 ) {
 
+    val iconButtonSize = 24.dp
     val quote = crypto.quote[currency.symbol]!!
     val percentDiff = quote.percentChange1h
 
@@ -46,9 +48,10 @@ fun CryptoListView(
     else
         applicationTheme.fontSecondary
 
-    val isFavorite by produceState(initialValue = false, crypto.id) {
-        value = favoriteCryptoViewModel.isFavorite(crypto.id) // suspend
-    }
+    val isFavorite by favoriteCryptoViewModel.isFavorite(crypto.id)
+        .collectAsState(initial = false)
+
+    val cryptoAsFavoriteCrypto = FavoriteCrypto.from(crypto)
 
     Row(
         modifier = Modifier
@@ -75,26 +78,36 @@ fun CryptoListView(
 
                 // Actions (favorite / share)
                 IconButton(
-                    onClick = {favoriteCryptoViewModel.addFavorite(FavoriteCrypto.from(crypto))}
+                    onClick = {
+                        if (isFavorite) {
+                            favoriteCryptoViewModel.removeFavorite(cryptoAsFavoriteCrypto)
+                        } else {
+                            favoriteCryptoViewModel.addFavorite(cryptoAsFavoriteCrypto)
+                        }
+                    },
+                    modifier = Modifier
+                        .size(iconButtonSize)
+                        .align(Alignment.CenterVertically)
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(
                             id = if (isFavorite) R.drawable.bookmark else R.drawable.bookmark_border
                         ),
                         contentDescription = "Add ${crypto.name} to favorites",
-                        tint = applicationTheme.primary,
-                        modifier = Modifier
-                            .size(20.dp)
-                            .align(Alignment.CenterVertically)
+                        tint = applicationTheme.primary
                     )
                 }
-                Icon(
-                    imageVector = Icons.Default.Share,
-                    contentDescription = "Share ${crypto.name}",
+                IconButton(
+                    onClick = {},
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(iconButtonSize)
                         .align(Alignment.CenterVertically)
-                )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Share,
+                        contentDescription = "Share ${crypto.name}"
+                    )
+                }
             }
 
             // Price diff in percent
