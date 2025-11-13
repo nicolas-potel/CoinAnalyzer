@@ -77,6 +77,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.animation.core)
+    implementation(libs.androidx.compose.foundation.layout)
 
     implementation(libs.coil)
     implementation(libs.coil.compose)

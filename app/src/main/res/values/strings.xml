@@ -40,4 +40,9 @@
 
     <string name="currencies_title">Devises</string>
 
+    <string name="time_interval_hour">1h</string>
+    <string name="time_interval_day">24h</string>
+    <string name="time_interval_week">7j</string>
+    <string name="time_interval_month">30j</string>
+
 </resources>

@@ -39,4 +39,10 @@
     <string name="languages_en">English</string>
 
     <string name="currencies_title">Currencies</string>
+
+    <string name="time_interval_hour">1h</string>
+    <string name="time_interval_day">24h</string>
+    <string name="time_interval_week">7d</string>
+    <string name="time_interval_month">30d</string>
+
 </resources>

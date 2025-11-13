@@ -29,3 +29,12 @@ data class Quote(
     @Json(name = "market_cap") val marketCap: Double,
     @Json(name = "market_cap_dominance") val marketCapDominance: Double,
 )
+
+fun Quote.getPercentChange(interval: TimeInterval): Double {
+    return when(interval) {
+        TimeInterval.HOUR -> percentChange1h
+        TimeInterval.DAY -> percentChange24h
+        TimeInterval.WEEK -> percentChange7d
+        TimeInterval.MONTH -> percentChange30d
+    }
+}
