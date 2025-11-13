@@ -10,8 +10,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -20,6 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import potel.nicolas.coinanalyzer.R
+import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
+import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.CryptoData
 import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
@@ -27,9 +33,11 @@ import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 @Composable
 fun CryptoListView(
     crypto : CryptoData,
-    currency: Currency
+    currency: Currency,
+    favoriteCryptoViewModel : FavoriteCryptoViewModel
 ) {
 
+    val iconButtonSize = 24.dp
     val quote = crypto.quote[currency.symbol]!!
     val percentDiff = quote.percentChange1h
 
@@ -39,6 +47,11 @@ fun CryptoListView(
         applicationTheme.decrease
     else
         applicationTheme.fontSecondary
+
+    val isFavorite by favoriteCryptoViewModel.isFavorite(crypto.id)
+        .collectAsState(initial = false)
+
+    val cryptoAsFavoriteCrypto = FavoriteCrypto.from(crypto)
 
     Row(
         modifier = Modifier
@@ -64,23 +77,37 @@ fun CryptoListView(
                 )
 
                 // Actions (favorite / share)
-                Icon(
-                    imageVector = ImageVector.vectorResource(
-                        id = if (true) R.drawable.bookmark else R.drawable.bookmark_border
-                    ),
-                    contentDescription = "Add ${crypto.name} to favorites",
-                    tint = applicationTheme.primary,
+                IconButton(
+                    onClick = {
+                        if (isFavorite) {
+                            favoriteCryptoViewModel.removeFavorite(cryptoAsFavoriteCrypto)
+                        } else {
+                            favoriteCryptoViewModel.addFavorite(cryptoAsFavoriteCrypto)
+                        }
+                    },
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(iconButtonSize)
                         .align(Alignment.CenterVertically)
-                )
-                Icon(
-                    imageVector = Icons.Default.Share,
-                    contentDescription = "Share ${crypto.name}",
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(
+                            id = if (isFavorite) R.drawable.bookmark else R.drawable.bookmark_border
+                        ),
+                        contentDescription = "Add ${crypto.name} to favorites",
+                        tint = applicationTheme.primary
+                    )
+                }
+                IconButton(
+                    onClick = {},
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(iconButtonSize)
                         .align(Alignment.CenterVertically)
-                )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Share,
+                        contentDescription = "Share ${crypto.name}"
+                    )
+                }
             }
 
             // Price diff in percent
