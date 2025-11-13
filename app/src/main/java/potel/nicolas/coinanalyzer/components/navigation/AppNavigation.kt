@@ -40,7 +40,7 @@ fun AppNavigation(
             startDestination = Routes.HOME
         ) {
             composable(Routes.HOME) { HomePage(userPreferencesViewModel, cryptoViewModel, favoriteCryptoViewModel) }
-            composable(Routes.COINS) { CoinsPage() }
+            composable(Routes.COINS) { CoinsPage(userPreferencesViewModel, cryptoViewModel, favoriteCryptoViewModel) }
             composable(Routes.FAVORITES) { FavoritesPage(favoriteCryptoViewModel, userPreferencesViewModel, cryptoViewModel) }
             composable(Routes.OVERVIEW) { OverviewPage() }
             composable(Routes.SEARCH) { SearchPage() }
