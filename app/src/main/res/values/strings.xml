@@ -11,6 +11,10 @@
     <string name="home_see_more">Voir plus …</string>
     <string name="home_coins">Coins</string>
 
+    <string name="coins_no_data">Aucune donnée disponible.</string>
+
+    <string name="favorites_no_data">Aucune crypto n\'a été ajoutée aux favoris.</string>
+
     <string name="search_title">Recherches récentes</string>
     <string name="search_searchbar">Chercher des coins …</string>
     <string name="search_cancel">Annuler</string>

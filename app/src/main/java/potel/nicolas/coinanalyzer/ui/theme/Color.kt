@@ -12,5 +12,7 @@ data class ApplicationTheme(
 
     val primary : Color,
     val secondary : Color,
-    val tertiary: Color
+    val tertiary: Color,
+
+    val error: Color
 )
