@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.model.TimeInterval
 
 
 class UserPreferencesViewModel (
@@ -46,6 +47,23 @@ class UserPreferencesViewModel (
     fun setCurrency(newCurrency : Currency) {
         viewModelScope.launch {
             repository.setCurrency(newCurrency.symbol)
+        }
+    }
+
+    /**
+     * Time interval handling.
+     */
+    val timeInterval: StateFlow<Int> =
+        repository.timeInterval
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = UserPreferencesDefaultValues.timeInterval
+            )
+
+    fun setTimeInterval(newTimeInterval : TimeInterval) {
+        viewModelScope.launch {
+            repository.setTimeInterval(newTimeInterval)
         }
     }
 }

@@ -33,18 +33,21 @@ import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoDAO
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.CryptoData
 import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.model.TimeInterval
+import potel.nicolas.coinanalyzer.model.getPercentChange
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
 fun CryptoGridView(
     crypto : CryptoData,
     currency : Currency,
+    timeInterval: TimeInterval,
     favoriteCryptoViewModel: FavoriteCryptoViewModel
 ) {
 
     val iconButtonSize = 24.dp
     val quote = crypto.quote[currency.symbol]!!
-    val percentDiff = quote.percentChange1h
+    val percentDiff = quote.getPercentChange(timeInterval)
 
     val percentDiffColor = if (percentDiff > 0)
         applicationTheme.increase

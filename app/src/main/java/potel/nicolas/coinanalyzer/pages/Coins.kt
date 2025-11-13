@@ -20,8 +20,10 @@ import potel.nicolas.coinanalyzer.components.CryptoGridView
 import potel.nicolas.coinanalyzer.components.CryptoListView
 import potel.nicolas.coinanalyzer.components.ErrorMessage
 import potel.nicolas.coinanalyzer.components.SectionTitle
+import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 @Composable
@@ -33,13 +35,20 @@ fun CoinsPage(
     val cryptos by cryptoViewModel.cryptos.collectAsState()
     val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
+    val timeIntervalAsInt by userPreferencesViewModel.timeInterval.collectAsState()
 
     val currencyAsCurrency = Currency.from(selectedCurrency)
+
+    val intervalAsTimeInterval = TimeInterval.from(timeIntervalAsInt)
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        TimeIntervalSwitcher(
+            selectedInterval = intervalAsTimeInterval,
+            onSelect = { userPreferencesViewModel.setTimeInterval(it) }
+        )
         SectionTitle(stringResource(id = R.string.page_coins))
 
         if (cryptos.isEmpty()) {
@@ -50,7 +59,7 @@ fun CoinsPage(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(cryptos) { crypto ->
-                    CryptoListView(crypto, currencyAsCurrency, favoriteCryptoViewModel)
+                    CryptoListView(crypto, currencyAsCurrency, intervalAsTimeInterval, favoriteCryptoViewModel)
                 }
             }
         } else {
@@ -61,7 +70,7 @@ fun CoinsPage(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(cryptos) { crypto ->
-                    CryptoGridView(crypto, currencyAsCurrency, favoriteCryptoViewModel)
+                    CryptoGridView(crypto, currencyAsCurrency, intervalAsTimeInterval, favoriteCryptoViewModel)
                 }
             }
         }
