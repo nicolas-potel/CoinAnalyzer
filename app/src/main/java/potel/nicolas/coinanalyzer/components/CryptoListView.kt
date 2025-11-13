@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -28,18 +27,21 @@ import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.CryptoData
 import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.model.TimeInterval
+import potel.nicolas.coinanalyzer.model.getPercentChange
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
 fun CryptoListView(
     crypto : CryptoData,
     currency: Currency,
-    favoriteCryptoViewModel : FavoriteCryptoViewModel
+    timeInterval : TimeInterval,
+    favoriteCryptoViewModel : FavoriteCryptoViewModel,
 ) {
 
     val iconButtonSize = 24.dp
     val quote = crypto.quote[currency.symbol]!!
-    val percentDiff = quote.percentChange1h
+    val percentDiff = quote.getPercentChange(timeInterval)
 
     val percentDiffColor = if (percentDiff > 0)
         applicationTheme.increase
@@ -50,6 +52,7 @@ fun CryptoListView(
 
     val isFavorite by favoriteCryptoViewModel.isFavorite(crypto.id)
         .collectAsState(initial = false)
+
 
     val cryptoAsFavoriteCrypto = FavoriteCrypto.from(crypto)
 

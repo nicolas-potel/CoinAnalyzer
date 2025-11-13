@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,20 +23,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
+import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable
 fun TimeIntervalSwitcher(
-    selectedInterval: String, // "1h", "24h", "7d", "30d"
-    onSelect: (String) -> Unit,
+    selectedInterval: TimeInterval,
+    onSelect: (TimeInterval) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val options = listOf("1h", "24h", "7d", "30d")
+    val options = TimeInterval.entries.toTypedArray()
     val selectedIndex = options.indexOf(selectedInterval)
 
     BoxWithConstraints(
@@ -80,7 +81,7 @@ fun TimeIntervalSwitcher(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = interval,
+                        text = stringResource(interval.displayName),
                         color = applicationTheme.font,
                         fontWeight = FontWeight.Medium,
                         fontSize = 15.sp,
