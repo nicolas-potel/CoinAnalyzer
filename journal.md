@@ -6,7 +6,8 @@
 
 [<span style="color:green">+</span>] Création du projet, initialisation des dépendances.
 
-<b>Utilisation de l'IA</b> : 
+<b>Utilisation de l'IA</b> :
+
 - suggestion des versions à utiliser pour certaines dépendances.
 
 ### Semaine du 15/09/2025
@@ -16,7 +17,8 @@
 [<span style="color:green">+</span>] Création du composant SectionTitle
 [<span style="color:green">+</span>] Mise en place du thème de l'application
 
-<b>Utilisation de l'IA</b> : 
+<b>Utilisation de l'IA</b> :
+
 - pour ajouter la typographie
 - pour diverses questions de syntaxe
 - pour ajouter l'icône de l'application et pour le debugging du composant SectionTitle
@@ -33,7 +35,8 @@ Pas de séance cette semaine.
 [<span style="color:green">+</span>] Composant CryptoListView pour l'affichage en liste
 [<span style="color:green">+</span>] Ajout des icônes (favoris, partager, trending up & down)
 
-<b>Utilisation de l'IA</b> : 
+<b>Utilisation de l'IA</b> :
+
 - pour diverses questions de syntaxe
 - pour le debugging d'une dépendance qui n'arrivait pas à fonctionner
 - pour l'ajout d'un vector au projet pour les icônes
@@ -44,7 +47,8 @@ Pas de séance cette semaine.
 [<span style="color:green">+</span>] Composant TopNavbar pour la barre de navigation en haut de l'écran
 [<span style="color:green">+</span>] Composant NavigationMenu pour pouvoir voyager entre les pages
 
-<b>Utilisation de l'IA</b> : 
+<b>Utilisation de l'IA</b> :
+
 - pour diverses questions de syntaxe
 - pour l'affichage de plusieurs éléments en liste sur une même ligne (pour l'affichage en grid)
 - pour la gestion des paddings des différents composants
@@ -54,7 +58,8 @@ Pas de séance cette semaine.
 [<span style="color:green">+</span>] ViewModel et configuration locale avec un DataStore pour les préférences utilisateur.
 [<span style="color:green">+</span>] Début de la page de choix de la langue + recherches sur les possibilités pour changer la langue de l'application.
 
-<b>Utilisation de l'IA</b> : 
+<b>Utilisation de l'IA</b> :
+
 - pour diverses questions de syntaxe
 - pour la création d'un datastore et d'un ViewModel
 - pour du debug sur le changement de langue d'une application
@@ -65,7 +70,8 @@ Pas de séance cette semaine.
 [<span style="color:green">+</span>] Choix de conception : API minimale passée à 33 car envisager les APIs en dessous nécessite une façon différente de changer de langue, et donc une complexité accrue du code.
 [<span style="color:green">+</span>] Composant Switch pour la vue en Grille ou en Liste.
 
-<b>Utilisation de l'IA</b> : 
+<b>Utilisation de l'IA</b> :
+
 - pour diverses questions de syntaxe
 - pour du debug sur le changement de langue d'une application
 
@@ -75,3 +81,34 @@ Pause pédagogique.
 
 ### Semaine du 03/11/2025
 
+[<span style="color:green">+</span>] Début des appels API avec Retrofit
+[<span style="color:green">+</span>] Ajout d'un placeholder pour les images des cryptos récupérées
+
+<b>Utilisation de l'IA</b> :
+
+- pour diverses questions de syntaxe
+- pour l'ajout de Retrofit
+- pour du debug
+
+### Semaine du 10/11/2025
+
+[<span style="color:green">+</span>] Finalisation des appels API
+[<span style="color:green">+</span>] Ajout d'un composant de changement d'intervalle, avec stockage de la valeur choisie dans le DataStore
+[<span style="color:green">+</span>] Ajout d'un composant de message d'erreur lorsqu'aucune donnée n'est disponible
+
+<b>Utilisation de l'IA</b> :
+
+- pour diverses questions de syntaxe
+- pour du debug avec Retrofit
+- pour de l'optimisation de la récupération des données et le stockage dans Room.
+- pour l'animation de slide du composant de changement d'intervalle
+
+### Semaine du 17/11/2025
+
+[<span style="color:green">+</span>] Recherche d'une crypto dans la liste des données
+[<span style="color:green">+</span>] Stockage des précédentes recherches
+
+<b>Utilisation de l'IA</b> :
+
+- pour diverses questions de syntaxe
+- 

@@ -43,7 +43,7 @@ fun AppNavigation(
             composable(Routes.COINS) { CoinsPage(userPreferencesViewModel, cryptoViewModel, favoriteCryptoViewModel) }
             composable(Routes.FAVORITES) { FavoritesPage(favoriteCryptoViewModel, userPreferencesViewModel, cryptoViewModel) }
             composable(Routes.OVERVIEW) { OverviewPage() }
-            composable(Routes.SEARCH) { SearchPage() }
+            composable(Routes.SEARCH) { SearchPage(cryptoViewModel) }
             composable(Routes.SETTINGS) { SettingsPage(navController, userPreferencesViewModel) }
             composable(Routes.CURRENCIES) { CurrenciesPage(navController, userPreferencesViewModel) }
             composable(Routes.LANGUAGES) { LanguagesPage(navController) }
