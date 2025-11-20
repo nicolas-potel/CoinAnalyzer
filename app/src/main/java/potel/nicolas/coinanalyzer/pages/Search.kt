@@ -18,10 +18,12 @@ import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.SearchBar
 import potel.nicolas.coinanalyzer.components.SearchedCrypto
 import potel.nicolas.coinanalyzer.components.SectionTitle
+import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 
 @Composable
 fun SearchPage(
-    cryptoViewModel: CryptoViewModel
+    cryptoViewModel: CryptoViewModel,
+    recentSearchViewModel: RecentSearchViewModel
 ) {
     var searchText by remember { mutableStateOf("") }
     val cryptos by cryptoViewModel.cryptos.collectAsState()

@@ -10,6 +10,8 @@ import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoRepository
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesRepository
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.recentsearch.RecentSearchRepository
+import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 import potel.nicolas.coinanalyzer.ui.theme.ApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,21 +19,28 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Databases
-        val favoriteCryptoDatabase = AppDatabase.getDatabase(this)
+        // Room database
+        val appDatabase = AppDatabase.getDatabase(this)
 
         // Repositories
         val userPreferenciesRepository = UserPreferencesRepository(this)
-        val favoriteCryptoRepository = FavoriteCryptoRepository(favoriteCryptoDatabase.favoriteDao())
+        val favoriteCryptoRepository = FavoriteCryptoRepository(appDatabase.favoriteDao())
+        val recentSearchRepository = RecentSearchRepository(appDatabase.recentSearchDao())
 
         // ViewModels
         val userPreferencesViewModel = UserPreferencesViewModel(userPreferenciesRepository)
         val cryptoViewModel = CryptoViewModel(userPreferencesViewModel)
         val favoriteCryptoViewModel = FavoriteCryptoViewModel(favoriteCryptoRepository)
+        val recentSearchViewModel = RecentSearchViewModel(recentSearchRepository)
 
         setContent {
             ApplicationTheme {
-                CoinAnalyzerApp(userPreferencesViewModel, cryptoViewModel, favoriteCryptoViewModel)
+                CoinAnalyzerApp(
+                    userPreferencesViewModel,
+                    cryptoViewModel,
+                    favoriteCryptoViewModel,
+                    recentSearchViewModel
+                )
             }
         }
     }

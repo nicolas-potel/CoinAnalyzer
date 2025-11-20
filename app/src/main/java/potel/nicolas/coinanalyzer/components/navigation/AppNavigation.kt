@@ -21,6 +21,7 @@ import potel.nicolas.coinanalyzer.pages.OverviewPage
 import potel.nicolas.coinanalyzer.pages.SearchPage
 import potel.nicolas.coinanalyzer.pages.SettingsPage
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 
 @Composable
 fun AppNavigation(
@@ -28,7 +29,8 @@ fun AppNavigation(
     navController : NavHostController,
     userPreferencesViewModel: UserPreferencesViewModel,
     cryptoViewModel: CryptoViewModel,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel
+    favoriteCryptoViewModel: FavoriteCryptoViewModel,
+    recentSearchViewModel: RecentSearchViewModel
 ) {
 
     Box(modifier = modifier
@@ -43,7 +45,7 @@ fun AppNavigation(
             composable(Routes.COINS) { CoinsPage(userPreferencesViewModel, cryptoViewModel, favoriteCryptoViewModel) }
             composable(Routes.FAVORITES) { FavoritesPage(favoriteCryptoViewModel, userPreferencesViewModel, cryptoViewModel) }
             composable(Routes.OVERVIEW) { OverviewPage() }
-            composable(Routes.SEARCH) { SearchPage(cryptoViewModel) }
+            composable(Routes.SEARCH) { SearchPage(cryptoViewModel, recentSearchViewModel) }
             composable(Routes.SETTINGS) { SettingsPage(navController, userPreferencesViewModel) }
             composable(Routes.CURRENCIES) { CurrenciesPage(navController, userPreferencesViewModel) }
             composable(Routes.LANGUAGES) { LanguagesPage(navController) }
