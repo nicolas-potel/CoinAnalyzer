@@ -1,7 +1,9 @@
-package potel.nicolas.coinanalyzer.model
+package potel.nicolas.coinanalyzer.api
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import potel.nicolas.coinanalyzer.model.CryptoItem
+import potel.nicolas.coinanalyzer.model.TimeInterval
 
 @JsonClass(generateAdapter = true)
 data class ApiResponse(
@@ -10,13 +12,13 @@ data class ApiResponse(
 
 @JsonClass(generateAdapter = true)
 data class CryptoData(
-    val id: Int,
-    val name: String,
-    val symbol: String,
+    override val id: Int,
+    override val name: String,
+    override val symbol: String,
     @Json(name = "max_supply") val maxSupply: Double?,
     @Json(name = "cmc_rank") val rank: Int,
     val quote: Map<String, Quote>
-)
+) : CryptoItem
 
 
 @JsonClass(generateAdapter = true)

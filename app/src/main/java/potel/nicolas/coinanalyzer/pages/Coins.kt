@@ -33,20 +33,17 @@ fun CoinsPage(
     favoriteCryptoViewModel: FavoriteCryptoViewModel
 ) {
     val cryptos by cryptoViewModel.cryptos.collectAsState()
-    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
-    val timeIntervalAsInt by userPreferencesViewModel.timeInterval.collectAsState()
 
-    val currencyAsCurrency = Currency.from(selectedCurrency)
-
-    val intervalAsTimeInterval = TimeInterval.from(timeIntervalAsInt)
+    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
+    val selectedTimeInterval by userPreferencesViewModel.timeInterval.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         TimeIntervalSwitcher(
-            selectedInterval = intervalAsTimeInterval,
+            selectedInterval = selectedTimeInterval,
             onSelect = { userPreferencesViewModel.setTimeInterval(it) }
         )
         SectionTitle(stringResource(id = R.string.page_coins))
@@ -59,7 +56,7 @@ fun CoinsPage(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(cryptos) { crypto ->
-                    CryptoListView(crypto, currencyAsCurrency, intervalAsTimeInterval, favoriteCryptoViewModel)
+                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
                 }
             }
         } else {
@@ -70,7 +67,7 @@ fun CoinsPage(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(cryptos) { crypto ->
-                    CryptoGridView(crypto, currencyAsCurrency, intervalAsTimeInterval, favoriteCryptoViewModel)
+                    CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
                 }
             }
         }

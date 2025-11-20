@@ -22,7 +22,6 @@ import potel.nicolas.coinanalyzer.components.ErrorMessage
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
-import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
@@ -33,12 +32,11 @@ fun FavoritesPage(
     cryptoViewModel: CryptoViewModel
 ) {
     val favoriteCryptos by favoriteCryptoViewModel.favorites.collectAsState()
-    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
-    val timeIntervalAsInt by userPreferencesViewModel.timeInterval.collectAsState()
     val cryptos by cryptoViewModel.cryptos.collectAsState()
 
-    val currencyAsCurrency = Currency.from(selectedCurrency)
+    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
+    val selectedTimeInterval by userPreferencesViewModel.timeInterval.collectAsState()
 
     val favoriteIds = favoriteCryptos.map { it.id }.toSet()
 
@@ -46,14 +44,12 @@ fun FavoritesPage(
         favoriteIds.contains(crypto.id)
     }
 
-    val intervalAsTimeInterval = TimeInterval.from(timeIntervalAsInt)
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         TimeIntervalSwitcher(
-            selectedInterval = intervalAsTimeInterval,
+            selectedInterval = selectedTimeInterval,
             onSelect = { userPreferencesViewModel.setTimeInterval(it) }
         )
         SectionTitle(stringResource(id = R.string.page_favorites))
@@ -66,7 +62,7 @@ fun FavoritesPage(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(favoriteCryptosAsCryptos) { crypto ->
-                    CryptoListView(crypto, currencyAsCurrency, intervalAsTimeInterval, favoriteCryptoViewModel)
+                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
                 }
             }
         } else {
@@ -77,7 +73,7 @@ fun FavoritesPage(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(favoriteCryptosAsCryptos) { crypto ->
-                CryptoGridView(crypto, currencyAsCurrency, intervalAsTimeInterval, favoriteCryptoViewModel)
+                CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
             }
         }
     }

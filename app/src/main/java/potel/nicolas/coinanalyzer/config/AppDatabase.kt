@@ -6,10 +6,19 @@ import androidx.room.RoomDatabase
 import android.content.Context
 import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoDAO
+import potel.nicolas.coinanalyzer.recentsearch.RecentSearch
+import potel.nicolas.coinanalyzer.recentsearch.RecentSearchDAO
 
-@Database(entities = [FavoriteCrypto::class], version = 1)
+@Database(
+    entities = [
+        FavoriteCrypto::class,
+        RecentSearch::class
+               ],
+    version = 2
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteCryptoDAO
+    abstract fun recentSearchDao(): RecentSearchDAO
 
     companion object {
         @Volatile
@@ -21,7 +30,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
