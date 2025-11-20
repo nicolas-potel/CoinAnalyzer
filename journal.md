@@ -111,4 +111,4 @@ Pause pédagogique.
 <b>Utilisation de l'IA</b> :
 
 - pour diverses questions de syntaxe
-- 
+- pour faire le composant SearchBar, notamment quel composable utiliser pour la base, pour des aides de style également

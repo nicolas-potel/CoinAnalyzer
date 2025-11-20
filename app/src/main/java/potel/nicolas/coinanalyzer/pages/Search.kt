@@ -27,6 +27,10 @@ fun SearchPage(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        SearchBar(
+            value = searchText,
+            onChange = { searchText = it }
+        )
         SectionTitle(stringResource(id = R.string.search_title))
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
