@@ -3,10 +3,8 @@ package potel.nicolas.coinanalyzer.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -29,12 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
-import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoDAO
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
-import potel.nicolas.coinanalyzer.model.CryptoData
+import potel.nicolas.coinanalyzer.api.CryptoData
 import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.model.TimeInterval
-import potel.nicolas.coinanalyzer.model.getPercentChange
+import potel.nicolas.coinanalyzer.api.getPercentChange
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable

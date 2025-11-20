@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.BuildConfig
 import potel.nicolas.coinanalyzer.config.NetworkModule.cryptoApi
-import potel.nicolas.coinanalyzer.model.CryptoData
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 class CryptoViewModel(

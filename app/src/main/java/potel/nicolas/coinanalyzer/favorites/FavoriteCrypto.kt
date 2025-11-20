@@ -2,7 +2,7 @@ package potel.nicolas.coinanalyzer.favorites
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import potel.nicolas.coinanalyzer.model.CryptoData
+import potel.nicolas.coinanalyzer.api.CryptoData
 
 @Entity(tableName = "favorites")
 data class FavoriteCrypto(

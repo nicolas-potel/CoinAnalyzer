@@ -1,7 +1,8 @@
-package potel.nicolas.coinanalyzer.model
+package potel.nicolas.coinanalyzer.api
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import potel.nicolas.coinanalyzer.model.TimeInterval
 
 @JsonClass(generateAdapter = true)
 data class ApiResponse(

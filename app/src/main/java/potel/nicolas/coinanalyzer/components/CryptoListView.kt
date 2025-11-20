@@ -25,10 +25,10 @@ import androidx.compose.ui.unit.sp
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
-import potel.nicolas.coinanalyzer.model.CryptoData
+import potel.nicolas.coinanalyzer.api.CryptoData
 import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.model.TimeInterval
-import potel.nicolas.coinanalyzer.model.getPercentChange
+import potel.nicolas.coinanalyzer.api.getPercentChange
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
 @Composable

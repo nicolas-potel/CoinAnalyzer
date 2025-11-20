@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import potel.nicolas.coinanalyzer.R
-import potel.nicolas.coinanalyzer.model.CryptoData
+import potel.nicolas.coinanalyzer.api.CryptoData
 
 @Composable
 fun CryptoIcon(
