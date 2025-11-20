@@ -23,7 +23,7 @@ fun ErrorMessage(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.5f)
+            .fillMaxHeight(0.3f)
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
