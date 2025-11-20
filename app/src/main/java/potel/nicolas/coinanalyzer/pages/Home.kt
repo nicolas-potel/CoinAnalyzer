@@ -1,16 +1,13 @@
 package potel.nicolas.coinanalyzer.pages
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,7 +37,7 @@ fun HomePage(
     cryptoViewModel: CryptoViewModel,
     favoriteCryptoViewModel: FavoriteCryptoViewModel
 ) {
-    val displayNbElements = 3
+    val displayNbElements = 4
 
     val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val selectedTimeInterval by userPreferencesViewModel.timeInterval.collectAsState()
