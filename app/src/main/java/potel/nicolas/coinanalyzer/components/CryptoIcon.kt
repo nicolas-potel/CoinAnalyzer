@@ -14,14 +14,22 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.api.CryptoData
+import potel.nicolas.coinanalyzer.model.CryptoItem
+import potel.nicolas.coinanalyzer.recentsearch.RecentSearch
 
 @Composable
 fun CryptoIcon(
-    crypto : CryptoData,
+    crypto : CryptoItem,
     size : Dp = 48.dp
 ) {
     val iconURL = "https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png"
 
+
+    when (crypto) {
+        is CryptoData -> { /* ... */ }
+        is RecentSearch -> { /* ... */ }
+        else -> throw IllegalArgumentException("Unsupported type")
+    }
     AsyncImage(
         contentScale = ContentScale.Crop,
         modifier = Modifier

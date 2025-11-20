@@ -19,7 +19,7 @@ class CryptoViewModel(
     init {
         viewModelScope.launch {
             userPreferencesViewModel.currency.collect { currency ->
-                fetchCryptos(currency)
+                fetchCryptos(currency.symbol)
             }
         }
     }

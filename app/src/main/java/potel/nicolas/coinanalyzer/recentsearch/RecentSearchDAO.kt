@@ -5,13 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import potel.nicolas.coinanalyzer.api.CryptoData
+import potel.nicolas.coinanalyzer.model.CryptoItem
 
 @Dao
 interface RecentSearchDAO {
 
     companion object {
-        const val MAX_RECENT_SEARCHES = 5
+        const val MAX_RECENT_SEARCHES = 6
     }
 
     /**
@@ -42,7 +42,7 @@ interface RecentSearchDAO {
      * @param item The crypto to add as recent search.
      */
     @Transaction
-    suspend fun addRecentSearch(item: CryptoData) {
+    suspend fun addRecentSearch(item: CryptoItem) {
         addRecentSearchRaw(RecentSearch.from(item))
 
         val all = getRecentSearches()

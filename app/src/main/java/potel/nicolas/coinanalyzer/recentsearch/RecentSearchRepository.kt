@@ -1,6 +1,6 @@
 package potel.nicolas.coinanalyzer.recentsearch
 
-import potel.nicolas.coinanalyzer.api.CryptoData
+import potel.nicolas.coinanalyzer.model.CryptoItem
 
 class RecentSearchRepository(private val dao: RecentSearchDAO) {
 
@@ -16,6 +16,6 @@ class RecentSearchRepository(private val dao: RecentSearchDAO) {
      * @param item The crypto to add as recent search.
      * @see RecentSearchDAO
      */
-    suspend fun addRecentSearch(item: CryptoData) = dao.addRecentSearch(item)
+    suspend fun addRecentSearch(item: CryptoItem) = dao.addRecentSearch(item)
 
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import potel.nicolas.coinanalyzer.api.CryptoData
+import potel.nicolas.coinanalyzer.model.CryptoItem
 
 class RecentSearchViewModel(
     private val repository: RecentSearchRepository
@@ -32,7 +32,7 @@ class RecentSearchViewModel(
      *
      * @param item The crypto to add in recent searches.
      */
-    fun addRecentSearch(item: CryptoData) {
+    fun addRecentSearch(item: CryptoItem) {
         viewModelScope.launch {
             repository.addRecentSearch(item)
             loadRecentSearches()

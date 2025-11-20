@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.model.Currency
@@ -36,12 +37,15 @@ class UserPreferencesViewModel (
     /**
      * Currency handling.
      */
-    val currency: StateFlow<String> =
+    val currency: StateFlow<Currency> =
         repository.currency
+            .map { symbol ->
+                Currency.from(symbol)
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
-                initialValue = UserPreferencesDefaultValues.currency
+                initialValue = Currency.from(UserPreferencesDefaultValues.currency)
             )
 
     fun setCurrency(newCurrency : Currency) {
@@ -53,12 +57,15 @@ class UserPreferencesViewModel (
     /**
      * Time interval handling.
      */
-    val timeInterval: StateFlow<Int> =
+    val timeInterval: StateFlow<TimeInterval> =
         repository.timeInterval
+            .map { timeIntervalAsInt ->
+                TimeInterval.from(timeIntervalAsInt)
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
-                initialValue = UserPreferencesDefaultValues.timeInterval
+                initialValue = TimeInterval.from(UserPreferencesDefaultValues.timeInterval)
             )
 
     fun setTimeInterval(newTimeInterval : TimeInterval) {

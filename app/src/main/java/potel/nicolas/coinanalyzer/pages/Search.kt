@@ -26,7 +26,10 @@ fun SearchPage(
     recentSearchViewModel: RecentSearchViewModel
 ) {
     var searchText by remember { mutableStateOf("") }
+
     val cryptos by cryptoViewModel.cryptos.collectAsState()
+    val recentSearches by recentSearchViewModel.recentSearches.collectAsState()
+
     val nbOfDisplayedCryptos = 10
 
     Column(
@@ -49,10 +52,18 @@ fun SearchPage(
                     }
                     .take(nbOfDisplayedCryptos)
                     .forEach { c ->
-                        SearchedCrypto(c)
+                        SearchedCrypto(c, recentSearchViewModel)
                     }
             }
         }
         SectionTitle(stringResource(id = R.string.search_title))
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            recentSearches
+                .forEach { SearchedCrypto(it, recentSearchViewModel) }
+        }
     }
 }

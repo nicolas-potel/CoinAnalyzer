@@ -77,7 +77,7 @@ fun SettingsPage(
                     .padding(horizontal = 8.dp)
             ){
                 Text(
-                    text = currency,
+                    text = currency.symbol,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp
                 )
