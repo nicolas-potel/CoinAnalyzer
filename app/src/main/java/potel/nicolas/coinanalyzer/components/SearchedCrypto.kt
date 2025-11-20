@@ -30,7 +30,7 @@ fun SearchedCrypto(crypto : CryptoData) {
         Text(
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
-            text = capitalizeFirstLetter(crypto.name)
+            text = capitalizeFirstLetter(crypto.symbol)
         )
     }
 }
