@@ -1,5 +1,6 @@
 package potel.nicolas.coinanalyzer.components
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,7 +41,7 @@ fun CryptoListView(
 ) {
 
     val iconButtonSize = 24.dp
-    val quote = crypto.quote[currency.symbol]!!
+    val quote = crypto.quote.values.first()
     val percentDiff = quote.getPercentChange(timeInterval)
 
     val percentDiffColor = if (percentDiff > 0)

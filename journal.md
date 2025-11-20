@@ -107,6 +107,8 @@ Pause pédagogique.
 
 [<span style="color:green">+</span>] Recherche d'une crypto dans la liste des données
 [<span style="color:green">+</span>] Stockage des précédentes recherches
+[<span style="color:green">+</span>] Page d'accueil avec affichage des données
+[<span style="color:green">+</span>] Refactoring dans le viewModel des préférences
 
 <b>Utilisation de l'IA</b> :
 
