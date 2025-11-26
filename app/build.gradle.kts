@@ -82,10 +82,10 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
-    implementation (libs.retrofit)
-    implementation (libs.moshi)
-    implementation (libs.moshi.kotlin)
-    implementation (libs.converter.moshi)
+    implementation(libs.retrofit)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.converter.moshi)
 
     implementation(libs.datastore.preferences)
 

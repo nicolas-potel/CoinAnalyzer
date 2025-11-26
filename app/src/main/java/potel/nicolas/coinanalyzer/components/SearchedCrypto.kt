@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,15 +29,16 @@ fun SearchedCrypto(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = true)
+            ) { recentSearchViewModel.addRecentSearch(crypto) }
             .background(
                 color = applicationTheme.tertiary,
                 shape = RoundedCornerShape(20.dp)
             )
             .padding(horizontal = 10.dp, vertical = 4.dp)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = true)
-            ) { recentSearchViewModel.addRecentSearch(crypto) }
     ) {
         CryptoIcon(crypto, 30.dp)
         Text(
