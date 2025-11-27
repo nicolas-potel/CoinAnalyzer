@@ -34,6 +34,7 @@
     <string name="settings_view">Vue</string>
     <string name="settings_view_grid">Grille</string>
     <string name="settings_view_list">Liste</string>
+    <string name="settings_filter">Filtre</string>
 
     <string name="languages_fr">Français</string>
     <string name="languages_en">English</string>

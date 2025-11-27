@@ -41,12 +41,15 @@ fun HomePage(
 
     val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val selectedTimeInterval by userPreferencesViewModel.timeInterval.collectAsState()
+    val selectedFilter by userPreferencesViewModel.filter.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
 
     val favoriteCryptos by favoriteCryptoViewModel.favorites.collectAsState()
     val favoriteIds = favoriteCryptos.map { it.id }.toSet()
     val cryptos by cryptoViewModel.cryptos.collectAsState()
-    val favoriteCryptosAsCryptos = cryptos.filter { crypto ->
+
+    val filteredCryptos = selectedFilter.sort(cryptos, selectedCurrency)
+    val favoriteCryptosAsCryptos = filteredCryptos.filter { crypto ->
         favoriteIds.contains(crypto.id)
     }
 
@@ -120,7 +123,7 @@ fun HomePage(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                cryptos
+                filteredCryptos
                     .take(displayNbElements)
                     .forEach {
                         if (isListView) {
@@ -140,7 +143,7 @@ fun HomePage(
                         }
                     }
             }
-            if (cryptos.size > displayNbElements) {
+            if (filteredCryptos.size > displayNbElements) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()

@@ -37,10 +37,11 @@ fun FavoritesPage(
 
     val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val selectedTimeInterval by userPreferencesViewModel.timeInterval.collectAsState()
+    val selectedFilter by userPreferencesViewModel.filter.collectAsState()
 
     val favoriteIds = favoriteCryptos.map { it.id }.toSet()
 
-    val favoriteCryptosAsCryptos = cryptos.filter { crypto ->
+    val favoriteCryptosAsCryptos = selectedFilter.sort(cryptos, selectedCurrency).filter { crypto ->
         favoriteIds.contains(crypto.id)
     }
 

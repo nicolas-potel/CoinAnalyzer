@@ -37,6 +37,9 @@ fun CoinsPage(
 
     val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val selectedTimeInterval by userPreferencesViewModel.timeInterval.collectAsState()
+    val selectedFilter by userPreferencesViewModel.filter.collectAsState()
+
+    val filteredCryptos = selectedFilter.sort(cryptos, selectedCurrency)
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -48,14 +51,14 @@ fun CoinsPage(
         )
         SectionTitle(stringResource(id = R.string.page_coins))
 
-        if (cryptos.isEmpty()) {
+        if (filteredCryptos.isEmpty()) {
             ErrorMessage(stringResource(R.string.coins_no_data))
         } else if (isListView) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(cryptos) { crypto ->
+                items(filteredCryptos) { crypto ->
                     CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
                 }
             }
@@ -66,7 +69,7 @@ fun CoinsPage(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(cryptos) { crypto ->
+                items(filteredCryptos) { crypto ->
                     CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
                 }
             }
