@@ -45,4 +45,10 @@
     <string name="time_interval_week">7j</string>
     <string name="time_interval_month">30j</string>
 
+    <string name="filters_title">Filtres</string>
+    <string name="filters_rank_desc">Filtrer par rang descendant</string>
+    <string name="filters_rank_asc">Filtrer par rang ascendant</string>
+    <string name="filters_price_desc">Filtrer par prix descendant</string>
+    <string name="filters_price_asc">Filtrer par prix ascendant</string>
+
 </resources>

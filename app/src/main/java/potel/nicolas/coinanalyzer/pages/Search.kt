@@ -27,6 +27,7 @@ import potel.nicolas.coinanalyzer.components.SearchBar
 import potel.nicolas.coinanalyzer.components.SearchedCrypto
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.config.Routes
+import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 
@@ -34,12 +35,15 @@ import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 fun SearchPage(
     navController: NavHostController,
     cryptoViewModel: CryptoViewModel,
-    recentSearchViewModel: RecentSearchViewModel
+    recentSearchViewModel: RecentSearchViewModel,
+    userPreferencesViewModel: UserPreferencesViewModel
 ) {
     var searchText by remember { mutableStateOf("") }
 
     val cryptos by cryptoViewModel.cryptos.collectAsState()
     val recentSearches by recentSearchViewModel.recentSearches.collectAsState()
+    val selectedFilter by userPreferencesViewModel.filter.collectAsState()
+    val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
 
     val nbOfDisplayedCryptos = 10
 
@@ -75,7 +79,7 @@ fun SearchPage(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             if (!searchText.isEmpty()) {
-                cryptos
+                selectedFilter.sort(cryptos, selectedCurrency)
                     .filter { c ->
                         c.name.contains(searchText, ignoreCase = true)
                                 || c.symbol.contains(searchText, ignoreCase = true)

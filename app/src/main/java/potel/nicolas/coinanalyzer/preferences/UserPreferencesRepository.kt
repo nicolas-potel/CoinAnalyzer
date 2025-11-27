@@ -3,6 +3,7 @@ package potel.nicolas.coinanalyzer.preferences
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.map
+import potel.nicolas.coinanalyzer.model.Filter
 import potel.nicolas.coinanalyzer.model.TimeInterval
 
 class UserPreferencesRepository(
@@ -45,6 +46,19 @@ class UserPreferencesRepository(
     suspend fun setTimeInterval(newTimeInterval: TimeInterval) {
         context.userPreferencesDataStore.edit { preferences ->
             preferences[UserPreferencesKeys.TIME_INTERVAL] = newTimeInterval.displayName
+        }
+    }
+
+    /**
+     * Filter handling.
+     */
+    val filter = context.userPreferencesDataStore.data.map { preferences ->
+        preferences[UserPreferencesKeys.FILTER] ?: UserPreferencesDefaultValues.filter
+    }
+
+    suspend fun setFilter(newFilter: Filter) {
+        context.userPreferencesDataStore.edit { preferences ->
+            preferences[UserPreferencesKeys.FILTER] = newFilter.id
         }
     }
 }
