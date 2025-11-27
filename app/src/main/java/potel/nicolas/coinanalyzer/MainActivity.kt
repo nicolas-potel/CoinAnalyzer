@@ -3,7 +3,6 @@ package potel.nicolas.coinanalyzer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.config.AppDatabase
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoRepository

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.model.Filter
 import potel.nicolas.coinanalyzer.model.TimeInterval
 
 
@@ -71,6 +72,26 @@ class UserPreferencesViewModel (
     fun setTimeInterval(newTimeInterval : TimeInterval) {
         viewModelScope.launch {
             repository.setTimeInterval(newTimeInterval)
+        }
+    }
+
+    /**
+     * Filter handling.
+     */
+    val filter: StateFlow<Filter> =
+        repository.filter
+            .map { filterId ->
+                Filter.from(filterId)
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = Filter.from(UserPreferencesDefaultValues.filter)
+            )
+
+    fun setFilter(newFilter : Filter) {
+        viewModelScope.launch {
+            repository.setFilter(newFilter)
         }
     }
 }

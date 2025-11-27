@@ -34,6 +34,7 @@
     <string name="settings_view">View</string>
     <string name="settings_view_grid">Grid</string>
     <string name="settings_view_list">List</string>
+    <string name="settings_filter">Filter</string>
 
     <string name="languages_fr">Français</string>
     <string name="languages_en">English</string>
@@ -44,5 +45,11 @@
     <string name="time_interval_day">24h</string>
     <string name="time_interval_week">7d</string>
     <string name="time_interval_month">30d</string>
+
+    <string name="filters_title">Filters</string>
+    <string name="filters_rank_desc">Filter by descending rank</string>
+    <string name="filters_rank_asc">Filter by ascending rank</string>
+    <string name="filters_price_desc">Filter by descending price</string>
+    <string name="filters_price_asc">Filter by ascending price</string>
 
 </resources>

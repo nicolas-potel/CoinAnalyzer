@@ -146,5 +146,38 @@ fun SettingsPage(
                 onToggle = { userPreferencesViewModel.toggleListView() }
             )
         }
+
+        // Filter
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.settings_filter),
+                fontWeight = FontWeight.Medium,
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.weight(1f))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(borderRadius))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(bounded = true)
+                    ) {
+                        navController.navigate(Routes.FILTERS)
+                    }
+                    .padding(horizontal = 8.dp)
+            ){
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.keyboard_arrow_right),
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = "arrow"
+                )
+            }
+        }
     }
 }

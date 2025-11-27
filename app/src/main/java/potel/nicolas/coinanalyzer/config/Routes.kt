@@ -9,9 +9,11 @@ object Routes {
     const val SETTINGS = "settings"
     const val LANGUAGES = "languages"
     const val CURRENCIES = "currencies"
+    const val FILTERS = "filters"
 }
 
 val PagesWithoutTopBar = listOf(
     Routes.CURRENCIES,
-    Routes.LANGUAGES
+    Routes.LANGUAGES,
+    Routes.FILTERS
 )
