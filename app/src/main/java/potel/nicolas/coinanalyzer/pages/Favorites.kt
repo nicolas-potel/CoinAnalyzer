@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.CryptoGridView
@@ -27,6 +28,7 @@ import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 @Composable
 fun FavoritesPage(
+    navHostController: NavHostController,
     favoriteCryptoViewModel: FavoriteCryptoViewModel,
     userPreferencesViewModel: UserPreferencesViewModel,
     cryptoViewModel: CryptoViewModel
@@ -63,7 +65,7 @@ fun FavoritesPage(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(favoriteCryptosAsCryptos) { crypto ->
-                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
+                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
                 }
             }
         } else {
@@ -74,7 +76,7 @@ fun FavoritesPage(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(favoriteCryptosAsCryptos) { crypto ->
-                CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
+                CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
             }
         }
     }

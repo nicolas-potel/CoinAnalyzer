@@ -20,12 +20,24 @@ class CryptoViewModel(
     private val _cryptoDetails = MutableStateFlow<CryptoDetails?>(null)
     val selectedCryptoDetails: StateFlow<CryptoDetails?> = _cryptoDetails
 
+    private val _selectedCrypto = MutableStateFlow<CryptoData?>(null)
+    val selectedCrypto = _selectedCrypto
+
     init {
         viewModelScope.launch {
             userPreferencesViewModel.currency.collect { currency ->
                 fetchCryptos(currency.symbol)
             }
         }
+    }
+
+    /**
+     * Sets the selected crypto to specified one.
+     *
+     * @param crypto The new selected crypto.
+     */
+    fun setSelectedCrypto(crypto : CryptoData) {
+        _selectedCrypto.value = crypto
     }
 
     /**

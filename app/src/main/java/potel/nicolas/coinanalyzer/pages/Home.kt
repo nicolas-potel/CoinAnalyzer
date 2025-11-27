@@ -83,14 +83,18 @@ fun HomePage(
                                 it,
                                 selectedCurrency,
                                 selectedTimeInterval,
-                                favoriteCryptoViewModel
+                                favoriteCryptoViewModel,
+                                cryptoViewModel,
+                                navController
                             )
                         } else {
                             CryptoGridView(
                                 it,
                                 selectedCurrency,
                                 selectedTimeInterval,
-                                favoriteCryptoViewModel
+                                favoriteCryptoViewModel,
+                                cryptoViewModel,
+                                navController
                             )
                         }
                     }
@@ -131,14 +135,18 @@ fun HomePage(
                                 it,
                                 selectedCurrency,
                                 selectedTimeInterval,
-                                favoriteCryptoViewModel
+                                favoriteCryptoViewModel,
+                                cryptoViewModel,
+                                navController
                             )
                         } else {
                             CryptoGridView(
                                 it,
                                 selectedCurrency,
                                 selectedTimeInterval,
-                                favoriteCryptoViewModel
+                                favoriteCryptoViewModel,
+                                cryptoViewModel,
+                                navController
                             )
                         }
                     }
