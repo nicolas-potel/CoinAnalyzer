@@ -6,7 +6,7 @@ import potel.nicolas.coinanalyzer.model.CryptoItem
 import potel.nicolas.coinanalyzer.model.TimeInterval
 
 @JsonClass(generateAdapter = true)
-data class ApiResponse(
+data class CryptoDataResponse(
     val data: List<CryptoData>
 )
 
