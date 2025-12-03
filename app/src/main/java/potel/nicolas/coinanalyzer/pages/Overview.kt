@@ -31,6 +31,7 @@ import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.api.getPercentChange
 import potel.nicolas.coinanalyzer.components.CryptoIcon
 import potel.nicolas.coinanalyzer.components.SectionTitle
+import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
 import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
@@ -115,7 +116,7 @@ fun OverviewPage(
                 ){
                     Text(
                         fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight.Medium,
                         text = "${capitalizeFirstLetter(selectedCrypto!!.name)} (${selectedCrypto!!.symbol})"
                     )
                     Spacer(Modifier.width(8.dp))
@@ -140,8 +141,8 @@ fun OverviewPage(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Medium,
                         text = "${String.format("%.2f", quote.price)}${selectedCurrency.displayName}"
                     )
                     Icon(
@@ -164,6 +165,13 @@ fun OverviewPage(
                     text = (if (percentDiff >= 0) "+" else "")
                             + String.format("%.3f", percentDiff)
                             + "%"
+                )
+
+                TimeIntervalSwitcher(
+                    selectedInterval = timeInterval,
+                    onSelect = {
+                        userPreferencesViewModel.setTimeInterval(it)
+                    }
                 )
             }
         }

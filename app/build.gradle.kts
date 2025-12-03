@@ -77,6 +77,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.animation.core)
+    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)
 
     implementation(libs.coil)
@@ -91,7 +92,6 @@ dependencies {
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    implementation(libs.androidx.compose.foundation)
     ksp(libs.room.compiler)
 
     testImplementation(libs.junit)

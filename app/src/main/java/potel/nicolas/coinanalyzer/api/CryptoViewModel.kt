@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.BuildConfig
 import potel.nicolas.coinanalyzer.config.NetworkModule.cryptoApi
 import potel.nicolas.coinanalyzer.model.CryptoItem
+import potel.nicolas.coinanalyzer.model.Currency
+import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 class CryptoViewModel(
@@ -59,10 +61,15 @@ class CryptoViewModel(
      *
      * @param crypto The crypto to search details for.
      */
-    fun getCryptoDetails(crypto : CryptoItem) {
+    fun getCryptoDetails(crypto : CryptoItem, currency : Currency, timeInterval: TimeInterval) {
         viewModelScope.launch {
             try {
-                val response = cryptoApi.getCryptoDetails(BuildConfig.API_KEY, crypto.symbol)
+                val response = cryptoApi.getHistoricalQuotes(
+                    BuildConfig.API_KEY,
+                    crypto.symbol,
+                    timeInterval.every,
+                    currency.symbol,
+                    TimeInterval.getTimeFromInterval(timeInterval))
                 _cryptoDetails.value = response.data[crypto.symbol]
             } catch (_: Exception) {
                 _cryptoDetails.value = null
