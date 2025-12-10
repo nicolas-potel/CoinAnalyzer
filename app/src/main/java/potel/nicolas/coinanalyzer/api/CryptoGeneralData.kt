@@ -29,7 +29,6 @@ data class Quote(
     @Json(name = "percent_change_7d") val percentChange7d: Double,
     @Json(name = "percent_change_30d") val percentChange30d: Double,
     @Json(name = "market_cap") val marketCap: Double,
-    @Json(name = "market_cap_dominance") val marketCapDominance: Double,
 )
 
 fun Quote.getPercentChange(interval: TimeInterval): Double {

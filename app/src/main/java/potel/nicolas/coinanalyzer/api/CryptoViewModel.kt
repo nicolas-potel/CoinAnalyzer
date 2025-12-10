@@ -1,5 +1,6 @@
 package potel.nicolas.coinanalyzer.api
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +20,8 @@ class CryptoViewModel(
     private val _cryptos = MutableStateFlow<List<CryptoData>>(emptyList())
     val cryptos: StateFlow<List<CryptoData>> = _cryptos
 
-    private val _cryptoDetails = MutableStateFlow<CryptoDetails?>(null)
-    val selectedCryptoDetails: StateFlow<CryptoDetails?> = _cryptoDetails
+    private val _cryptoDetails = MutableStateFlow<List<TimedQuote>>(emptyList())
+    val selectedCryptoDetails: StateFlow<List<TimedQuote>> = _cryptoDetails
 
     private val _selectedCrypto = MutableStateFlow<CryptoData?>(null)
     val selectedCrypto = _selectedCrypto
@@ -70,9 +71,9 @@ class CryptoViewModel(
                     timeInterval.every,
                     currency.symbol,
                     TimeInterval.getTimeFromInterval(timeInterval))
-                _cryptoDetails.value = response.data[crypto.symbol]
-            } catch (_: Exception) {
-                _cryptoDetails.value = null
+                _cryptoDetails.value = response.data.quotes
+            } catch (e: Exception) {
+                _cryptoDetails.value = emptyList()
             }
         }
     }

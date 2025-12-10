@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.api.CryptoViewModel
+import potel.nicolas.coinanalyzer.api.TimedQuote
 import potel.nicolas.coinanalyzer.api.getPercentChange
 import potel.nicolas.coinanalyzer.components.CryptoIcon
 import potel.nicolas.coinanalyzer.components.SectionTitle
@@ -51,8 +52,8 @@ fun OverviewPage(
     val selectedCurrency by userPreferencesViewModel.currency.collectAsState()
     val timeInterval by userPreferencesViewModel.timeInterval.collectAsState()
 
-    val isFavorite: Boolean = if (cryptoDetails != null) {
-        favoriteCryptoViewModel.isFavorite(cryptoDetails!!.id)
+    val isFavorite: Boolean = if (selectedCrypto != null) {
+        favoriteCryptoViewModel.isFavorite(selectedCrypto!!.id)
             .collectAsState(initial = false)
             .value
     } else {
@@ -69,7 +70,7 @@ fun OverviewPage(
     else
         applicationTheme.fontSecondary
 
-    val selectedCryptoAsFavoriteCrypto : FavoriteCrypto? = cryptoDetails?.let {
+    val selectedCryptoAsFavoriteCrypto : FavoriteCrypto? = selectedCrypto?.let {
         FavoriteCrypto.from(it)
     }
 
@@ -82,9 +83,9 @@ fun OverviewPage(
             IconButton(
                 onClick = {
                     if (isFavorite) {
-                        favoriteCryptoViewModel.removeFavorite(FavoriteCrypto.from(cryptoDetails!!))
+                        favoriteCryptoViewModel.removeFavorite(FavoriteCrypto.from(selectedCrypto!!))
                     } else {
-                        favoriteCryptoViewModel.addFavorite(FavoriteCrypto.from(cryptoDetails!!))
+                        favoriteCryptoViewModel.addFavorite(FavoriteCrypto.from(selectedCrypto!!))
                     }
                 },
                 modifier = Modifier

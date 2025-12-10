@@ -29,7 +29,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
@@ -79,7 +78,7 @@ fun CryptoGridView(
                 indication = rememberRipple(bounded = true)
             ) {
                 cryptoViewModel.setSelectedCrypto(crypto)
-                cryptoViewModel.getCryptoDetails(crypto)
+                cryptoViewModel.getCryptoDetails(crypto, currency, timeInterval)
                 navController.navigate(Routes.OVERVIEW)
             }
             .border(

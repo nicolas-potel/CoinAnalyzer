@@ -20,5 +20,5 @@ data class CryptoDetailsData(
 @JsonClass(generateAdapter = true)
 data class TimedQuote(
     val timestamp : Instant,
-    val quote : Quote,
+    val quote : Map<String, Quote>,
 )
