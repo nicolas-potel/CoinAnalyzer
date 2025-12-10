@@ -29,13 +29,14 @@ import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun HomePage(
     navController : NavHostController,
-    userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel,
+    cryptoViewModel: CryptoViewModel = ViewModels.cryptoViewModel,
+    favoriteCryptoViewModel: FavoriteCryptoViewModel = ViewModels.favoriteCryptoViewModel
 ) {
     val displayNbElements = 4
 

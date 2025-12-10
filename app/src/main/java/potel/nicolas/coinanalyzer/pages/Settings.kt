@@ -33,13 +33,14 @@ import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.preferences.LanguageViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 
 @Composable
 fun SettingsPage(
     navController: NavHostController,
-    userPreferencesViewModel: UserPreferencesViewModel,
-    languageViewModel: LanguageViewModel = viewModel()
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel,
+    languageViewModel: LanguageViewModel = ViewModels.languageViewModel
 ) {
 
     val borderRadius = 12.dp

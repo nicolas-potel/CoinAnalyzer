@@ -32,11 +32,12 @@ import potel.nicolas.coinanalyzer.components.ModalPage
 import potel.nicolas.coinanalyzer.model.Language
 import potel.nicolas.coinanalyzer.preferences.LanguageViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun LanguagesPage(
     navController : NavHostController,
-    languageViewModel: LanguageViewModel = viewModel()
+    languageViewModel: LanguageViewModel = ViewModels.languageViewModel
 ) {
 
     val borderRadius = 12.dp

@@ -25,13 +25,14 @@ import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun FavoritesPage(
     navHostController: NavHostController,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel,
-    userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel
+    favoriteCryptoViewModel: FavoriteCryptoViewModel = ViewModels.favoriteCryptoViewModel,
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel,
+    cryptoViewModel: CryptoViewModel = ViewModels.cryptoViewModel
 ) {
     val favoriteCryptos by favoriteCryptoViewModel.favorites.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()

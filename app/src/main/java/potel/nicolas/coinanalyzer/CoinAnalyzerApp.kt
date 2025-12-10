@@ -10,25 +10,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.navigation.AppNavigation
 import potel.nicolas.coinanalyzer.components.navigation.NavigationMenu
 import potel.nicolas.coinanalyzer.components.TopNavbar
 import potel.nicolas.coinanalyzer.config.PagesWithoutTopBar
-import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
-import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
-import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 
 /**
  * Main component for Coin Analyzer application.
  */
 @Composable
-fun CoinAnalyzerApp(
-    userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel,
-    recentSearchViewModel: RecentSearchViewModel
-) {
+fun CoinAnalyzerApp() {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
@@ -52,10 +43,6 @@ fun CoinAnalyzerApp(
                 modifier = Modifier
                     .padding(innerPadding),
                 navController,
-                userPreferencesViewModel,
-                cryptoViewModel,
-                favoriteCryptoViewModel,
-                recentSearchViewModel
             )
         }
     }

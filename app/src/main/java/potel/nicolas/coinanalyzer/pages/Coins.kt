@@ -23,16 +23,15 @@ import potel.nicolas.coinanalyzer.components.ErrorMessage
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
-import potel.nicolas.coinanalyzer.model.Currency
-import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun CoinsPage(
     navHostController: NavHostController,
-    userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel,
+    cryptoViewModel: CryptoViewModel = ViewModels.cryptoViewModel,
+    favoriteCryptoViewModel: FavoriteCryptoViewModel = ViewModels.favoriteCryptoViewModel
 ) {
     val cryptos by cryptoViewModel.cryptos.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()

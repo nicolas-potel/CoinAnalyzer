@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.api.CryptoViewModel
-import potel.nicolas.coinanalyzer.api.TimedQuote
 import potel.nicolas.coinanalyzer.api.getPercentChange
 import potel.nicolas.coinanalyzer.components.CryptoIcon
 import potel.nicolas.coinanalyzer.components.SectionTitle
@@ -37,13 +36,14 @@ import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.ViewModels
 import potel.nicolas.coinanalyzer.util.capitalizeFirstLetter
 
 @Composable
 fun OverviewPage(
-    cryptoViewModel: CryptoViewModel,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel,
-    userPreferencesViewModel: UserPreferencesViewModel
+    cryptoViewModel: CryptoViewModel = ViewModels.cryptoViewModel,
+    favoriteCryptoViewModel: FavoriteCryptoViewModel = ViewModels.favoriteCryptoViewModel,
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel
 ) {
     val iconButtonSize = 26.dp
 
