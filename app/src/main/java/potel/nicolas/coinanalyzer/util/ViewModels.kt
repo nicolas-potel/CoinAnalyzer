@@ -11,12 +11,20 @@ object ViewModels {
 
     private lateinit var app: MainApplication
 
-    fun init(application: MainApplication) { app = application }
+    fun init(application: MainApplication) {
+        app = application
 
-    val userPreferencesViewModel: UserPreferencesViewModel by lazy { UserPreferencesViewModel(app.userPreferenciesRepository) }
-    val cryptoViewModel: CryptoViewModel by lazy { CryptoViewModel(userPreferencesViewModel) }
-    val favoriteCryptoViewModel: FavoriteCryptoViewModel by lazy { FavoriteCryptoViewModel(app.favoriteCryptoRepository) }
-    val recentSearchViewModel: RecentSearchViewModel by lazy { RecentSearchViewModel(app.recentSearchRepository) }
-    val languageViewModel: LanguageViewModel by lazy { LanguageViewModel() }
+        userPreferencesViewModel = UserPreferencesViewModel(app.userPreferencesRepository)
+        cryptoViewModel = CryptoViewModel(userPreferencesViewModel)
+        favoriteCryptoViewModel = FavoriteCryptoViewModel(app.favoriteCryptoRepository)
+        recentSearchViewModel = RecentSearchViewModel(app.recentSearchRepository)
+        languageViewModel = LanguageViewModel()
+    }
+
+    lateinit var userPreferencesViewModel: UserPreferencesViewModel private set
+    lateinit var cryptoViewModel: CryptoViewModel private set
+    lateinit var favoriteCryptoViewModel: FavoriteCryptoViewModel private set
+    lateinit var recentSearchViewModel: RecentSearchViewModel private set
+    lateinit var languageViewModel: LanguageViewModel private set
 }
 
