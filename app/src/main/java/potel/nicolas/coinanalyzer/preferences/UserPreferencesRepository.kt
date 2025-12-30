@@ -45,7 +45,7 @@ class UserPreferencesRepository(
 
     suspend fun setTimeInterval(newTimeInterval: TimeInterval) {
         context.userPreferencesDataStore.edit { preferences ->
-            preferences[UserPreferencesKeys.TIME_INTERVAL] = newTimeInterval.displayName
+            preferences[UserPreferencesKeys.TIME_INTERVAL] = newTimeInterval.id
         }
     }
 
