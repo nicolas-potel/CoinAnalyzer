@@ -38,6 +38,7 @@ import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.api.getPercentChange
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.formatPercentChange
 
 @Composable
 fun CryptoListView(
@@ -139,9 +140,7 @@ fun CryptoListView(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = percentDiffColor,
-                text = (if (percentDiff >= 0) "+" else "")
-                        + String.format("%.3f", percentDiff)
-                        + "%"
+                text = formatPercentChange(percentDiff)
             )
         }
         Spacer(modifier = Modifier.weight(1f))

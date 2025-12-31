@@ -38,6 +38,7 @@ import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
 import potel.nicolas.coinanalyzer.util.ViewModels
 import potel.nicolas.coinanalyzer.util.capitalizeFirstLetter
+import potel.nicolas.coinanalyzer.util.formatPercentChange
 
 @Composable
 fun OverviewPage(
@@ -69,10 +70,6 @@ fun OverviewPage(
         applicationTheme.decrease
     else
         applicationTheme.fontSecondary
-
-    val selectedCryptoAsFavoriteCrypto : FavoriteCrypto? = selectedCrypto?.let {
-        FavoriteCrypto.from(it)
-    }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -163,9 +160,7 @@ fun OverviewPage(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = percentDiffColor,
-                    text = (if (percentDiff >= 0) "+" else "")
-                            + String.format("%.3f", percentDiff)
-                            + "%"
+                    text = formatPercentChange(percentDiff)
                 )
 
                 TimeIntervalSwitcher(
