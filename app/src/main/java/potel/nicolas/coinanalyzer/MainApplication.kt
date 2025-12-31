@@ -4,8 +4,10 @@ import android.app.Application
 
 import potel.nicolas.coinanalyzer.config.AppDatabase
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoRepository
+import potel.nicolas.coinanalyzer.offline.CryptoEntityRepository
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesRepository
 import potel.nicolas.coinanalyzer.recentsearch.RecentSearchRepository
+import potel.nicolas.coinanalyzer.util.AppImageLoader
 import potel.nicolas.coinanalyzer.util.ViewModels
 
 class MainApplication : Application() {
@@ -17,6 +19,8 @@ class MainApplication : Application() {
     lateinit var userPreferencesRepository: UserPreferencesRepository private set
     lateinit var favoriteCryptoRepository: FavoriteCryptoRepository private set
     lateinit var recentSearchRepository: RecentSearchRepository private set
+    lateinit var cryptoEntityRepository: CryptoEntityRepository private set
+
 
     override fun onCreate() {
         super.onCreate()
@@ -25,8 +29,11 @@ class MainApplication : Application() {
         userPreferencesRepository = UserPreferencesRepository(this)
         favoriteCryptoRepository = FavoriteCryptoRepository(appDatabase.favoriteDao())
         recentSearchRepository = RecentSearchRepository(appDatabase.recentSearchDao())
+        cryptoEntityRepository = CryptoEntityRepository(appDatabase.cryptoEntityDao())
+
 
         ViewModels.init(this)
+        AppImageLoader.init(this)
     }
 
 }

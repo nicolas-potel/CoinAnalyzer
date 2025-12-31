@@ -16,6 +16,7 @@ import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.api.CryptoData
 import potel.nicolas.coinanalyzer.model.CryptoItem
 import potel.nicolas.coinanalyzer.recentsearch.RecentSearch
+import potel.nicolas.coinanalyzer.util.AppImageLoader
 
 @Composable
 fun CryptoIcon(
@@ -24,12 +25,12 @@ fun CryptoIcon(
 ) {
     val iconURL = "https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png"
 
-
     when (crypto) {
         is CryptoData -> { /* ... */ }
         is RecentSearch -> { /* ... */ }
         else -> throw IllegalArgumentException("Unsupported type")
     }
+    val imageLoader = AppImageLoader.get()
     AsyncImage(
         contentScale = ContentScale.Crop,
         modifier = Modifier
@@ -38,6 +39,7 @@ fun CryptoIcon(
             .aspectRatio(1f)
             .clip(CircleShape),
         model = iconURL,
+        imageLoader = imageLoader,
         contentDescription = "Crypto Icon ${crypto.symbol}",
         placeholder = painterResource(R.drawable.icon_placeholder),
         error = painterResource(R.drawable.icon_placeholder)

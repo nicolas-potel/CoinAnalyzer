@@ -4,6 +4,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import potel.nicolas.coinanalyzer.model.CryptoItem
 import potel.nicolas.coinanalyzer.model.TimeInterval
+import potel.nicolas.coinanalyzer.offline.CryptoEntity
+import potel.nicolas.coinanalyzer.offline.QuoteMapConverter
 
 @JsonClass(generateAdapter = true)
 data class CryptoDataResponse(
@@ -20,6 +22,16 @@ data class CryptoData(
     val quote: Map<String, Quote>
 ) : CryptoItem
 
+fun CryptoData.toEntity(converter: QuoteMapConverter): CryptoEntity {
+    return CryptoEntity(
+        id = id,
+        name = name,
+        symbol = symbol,
+        maxSupply = maxSupply,
+        rank = rank,
+        quoteJson = converter.fromMap(quote)
+    )
+}
 
 @JsonClass(generateAdapter = true)
 data class Quote(
