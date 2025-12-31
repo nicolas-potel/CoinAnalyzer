@@ -13,8 +13,14 @@ interface FavoriteCryptoDAO {
     @Query("SELECT * FROM favorites")
     suspend fun getAllFavorites(): List<FavoriteCrypto>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Query("SELECT * FROM favorites")
+    fun getAllFavoritesFlow(): Flow<List<FavoriteCrypto>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addFavorite(item: FavoriteCrypto)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(items: List<FavoriteCrypto>)
 
     @Delete
     suspend fun removeFavorite(item: FavoriteCrypto)
