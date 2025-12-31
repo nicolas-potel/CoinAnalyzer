@@ -53,5 +53,6 @@
     <string name="filters_price_asc">Filtrer par prix ascendant</string>
 
     <string name="copied_to_clipboard">Copié dans le presse-papier</string>
+    <string name="error_no_connection">Mise à jour des données impossible.</string>
 
 </resources>
