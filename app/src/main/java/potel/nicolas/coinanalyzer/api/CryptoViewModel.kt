@@ -63,8 +63,8 @@ class CryptoViewModel(
 
         } catch (e: Exception) {
             _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
-            Log.e("CryptoViewModel", "Error fetching cryptos : ${e.message}", e)
-            displayToastMessage(applicationContext, applicationContext.getString(R.string.error_no_connection))
+            Log.e("CryptoViewModel", "Error fetching cryptos", e)
+            displayToastMessage(applicationContext, applicationContext.getString(R.string.toast_error_no_connection))
         }
     }
 

@@ -1,20 +1,25 @@
 package potel.nicolas.coinanalyzer.pages
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,15 +30,18 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.GridListSwitcher
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.preferences.LanguageViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.preferences.exportUserPreferences
+import potel.nicolas.coinanalyzer.preferences.importUserPreferences
 import potel.nicolas.coinanalyzer.util.ViewModels
+import potel.nicolas.coinanalyzer.util.displayToastMessage
 
 
 @Composable
@@ -44,10 +52,39 @@ fun SettingsPage(
 ) {
 
     val borderRadius = 12.dp
+
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     val currency by userPreferencesViewModel.currency.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
+
+    val defaultFileName = "user_preferences.json"
+    val exportLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.CreateDocument("application/json")
+    ) { uri ->
+        uri?.let { destinationUri ->
+            scope.launch {
+                context.contentResolver.openOutputStream(destinationUri)?.use { outputStream ->
+                    context.exportUserPreferences(outputStream)
+                    displayToastMessage(context, context.getString(R.string.toast_export_config_success))
+                }
+            }
+        }
+    }
+
+    val importLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        uri?.let { sourceUri ->
+            scope.launch {
+                context.contentResolver.openInputStream(sourceUri)?.use { inputStream ->
+                    context.importUserPreferences(inputStream)
+                    displayToastMessage(context, context.getString(R.string.toast_import_config_success))
+                }
+            }
+        }
+    }
 
     Column {
         SectionTitle(stringResource(id = R.string.page_settings))
@@ -179,6 +216,26 @@ fun SettingsPage(
                     contentDescription = "arrow"
                 )
             }
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                exportLauncher.launch(defaultFileName)
+            }
+        ) {
+            Text(stringResource(R.string.settings_export_configuration))
+        }
+
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                importLauncher.launch(arrayOf("application/json"))
+            }
+        ) {
+            Text(stringResource(R.string.settings_import_configuration))
         }
     }
 }

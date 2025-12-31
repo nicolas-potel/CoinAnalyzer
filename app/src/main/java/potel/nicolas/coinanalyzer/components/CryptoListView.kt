@@ -43,6 +43,7 @@ import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.api.getPercentChange
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.displayToastMessage
 import potel.nicolas.coinanalyzer.util.formatPercentChange
 
 @Composable
@@ -57,7 +58,6 @@ fun CryptoListView(
 
     val iconButtonSize = 24.dp
     val borderRadius = 42.dp
-    val copiedText = stringResource(R.string.copied_to_clipboard)
 
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
@@ -133,7 +133,7 @@ fun CryptoListView(
                 IconButton(
                     onClick = {
                         clipboardManager.setText(AnnotatedString(crypto.name))
-                        Toast.makeText(context, copiedText, Toast.LENGTH_SHORT).show()
+                        displayToastMessage(context, context.getString(R.string.toast_copied_to_clipboard))
                     },
                     modifier = Modifier
                         .size(iconButtonSize)
