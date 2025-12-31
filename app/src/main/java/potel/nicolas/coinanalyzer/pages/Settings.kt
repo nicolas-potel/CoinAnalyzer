@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
+import potel.nicolas.coinanalyzer.MainApplication
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.GridListSwitcher
 import potel.nicolas.coinanalyzer.components.SectionTitle
@@ -54,6 +55,7 @@ fun SettingsPage(
     val borderRadius = 12.dp
 
     val context = LocalContext.current
+    val app = context.applicationContext as MainApplication
     val scope = rememberCoroutineScope()
 
     val currency by userPreferencesViewModel.currency.collectAsState()
@@ -66,7 +68,7 @@ fun SettingsPage(
         uri?.let { destinationUri ->
             scope.launch {
                 context.contentResolver.openOutputStream(destinationUri)?.use { outputStream ->
-                    context.exportUserPreferences(outputStream)
+                    context.exportUserPreferences(outputStream, app.favoriteCryptoRepository)
                     displayToastMessage(context, context.getString(R.string.toast_export_config_success))
                 }
             }
@@ -79,7 +81,7 @@ fun SettingsPage(
         uri?.let { sourceUri ->
             scope.launch {
                 context.contentResolver.openInputStream(sourceUri)?.use { inputStream ->
-                    context.importUserPreferences(inputStream)
+                    context.importUserPreferences(inputStream, app.favoriteCryptoRepository)
                     displayToastMessage(context, context.getString(R.string.toast_import_config_success))
                 }
             }
