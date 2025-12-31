@@ -34,7 +34,6 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.MainApplication
 import potel.nicolas.coinanalyzer.R
-import potel.nicolas.coinanalyzer.components.GridListSwitcher
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.preferences.LanguageViewModel
@@ -59,7 +58,6 @@ fun SettingsPage(
     val scope = rememberCoroutineScope()
 
     val currency by userPreferencesViewModel.currency.collectAsState()
-    val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
 
     val defaultFileName = "user_preferences.json"
     val exportLauncher = rememberLauncherForActivityResult(
@@ -165,26 +163,6 @@ fun SettingsPage(
                     contentDescription = "arrow"
                 )
             }
-        }
-
-
-        // Grid or List view
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(vertical = 6.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.settings_view),
-                fontWeight = FontWeight.Medium,
-                fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-
-            GridListSwitcher(
-                isListView = isListView,
-                onToggle = { userPreferencesViewModel.toggleListView() }
-            )
         }
 
         // Filter
