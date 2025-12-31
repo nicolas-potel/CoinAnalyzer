@@ -11,7 +11,6 @@ import potel.nicolas.coinanalyzer.model.TimeInterval
 val Context.userPreferencesDataStore by preferencesDataStore(name = "user_preferences")
 
 object UserPreferencesKeys {
-    val LIST_VIEW_ENABLED = booleanPreferencesKey("list_view_enabled")
     val CURRENCY = stringPreferencesKey("currency")
     val TIME_INTERVAL = stringPreferencesKey("time_interval")
     val FILTER = stringPreferencesKey("filter")
@@ -19,7 +18,6 @@ object UserPreferencesKeys {
 
 object UserPreferencesDefaultValues {
     val currency = Currency.USD.symbol
-    val listViewEnabled = true
     val timeInterval = TimeInterval.DAY.id
     val filter = Filter.RANK_DESC.id
 }

@@ -15,7 +15,6 @@ import java.io.OutputStream
 @JsonClass(generateAdapter = true)
 data class UserPreferences(
     val currency : String = UserPreferencesDefaultValues.currency,
-    val listViewEnabled : Boolean = UserPreferencesDefaultValues.listViewEnabled,
     val timeInterval : String = UserPreferencesDefaultValues.timeInterval,
     val filter : String = UserPreferencesDefaultValues.filter
 )

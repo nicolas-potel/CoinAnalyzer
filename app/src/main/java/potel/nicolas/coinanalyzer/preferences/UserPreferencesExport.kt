@@ -23,7 +23,6 @@ data class UserPreferencesExport(
 suspend fun Context.readUserPreferences(): UserPreferences {
     val prefs = userPreferencesDataStore.data.first()
     return UserPreferences(
-        listViewEnabled = prefs[UserPreferencesKeys.LIST_VIEW_ENABLED] ?: UserPreferencesDefaultValues.listViewEnabled,
         currency = prefs[UserPreferencesKeys.CURRENCY] ?: UserPreferencesDefaultValues.currency,
         timeInterval = prefs[UserPreferencesKeys.TIME_INTERVAL] ?: UserPreferencesDefaultValues.timeInterval,
         filter = prefs[UserPreferencesKeys.FILTER] ?: UserPreferencesDefaultValues.filter
@@ -37,7 +36,6 @@ suspend fun Context.readUserPreferences(): UserPreferences {
  */
 suspend fun Context.saveUserPreferences(prefs: UserPreferences) {
     userPreferencesDataStore.edit { data ->
-        data[UserPreferencesKeys.LIST_VIEW_ENABLED] = prefs.listViewEnabled
         data[UserPreferencesKeys.CURRENCY] = prefs.currency
         data[UserPreferencesKeys.TIME_INTERVAL] = prefs.timeInterval
         data[UserPreferencesKeys.FILTER] = prefs.filter

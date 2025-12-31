@@ -1,7 +1,9 @@
 package potel.nicolas.coinanalyzer.preferences
 
+import android.content.res.Configuration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -20,19 +22,24 @@ class UserPreferencesViewModel (
     /**
      * List view handling.
      */
-    val isListViewEnabled: StateFlow<Boolean> =
-        repository.isListViewEnabled
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = UserPreferencesDefaultValues.listViewEnabled
-            )
+    private val _orientation = MutableStateFlow(Configuration.ORIENTATION_PORTRAIT)
+    val orientation: StateFlow<Int> = _orientation
 
-    fun toggleListView() {
-        viewModelScope.launch {
-            val current = repository.isListViewEnabled.first()
-            repository.setListViewEnabled(!current)
-        }
+    val isListViewEnabled: StateFlow<Boolean> = _orientation
+        .map { it == Configuration.ORIENTATION_LANDSCAPE }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            false
+        )
+
+    /**
+     * Updates the orientation.
+     *
+     * @param configOrientation The new orientation.
+     */
+    fun updateOrientation(configOrientation: Int) {
+        _orientation.value = configOrientation
     }
 
     /**
