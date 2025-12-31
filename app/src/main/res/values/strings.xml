@@ -35,6 +35,8 @@
     <string name="settings_view_grid">Grille</string>
     <string name="settings_view_list">Liste</string>
     <string name="settings_filter">Filtre</string>
+    <string name="settings_export_configuration">Exporter la configuration</string>
+    <string name="settings_import_configuration">Importer une configuration</string>
 
     <string name="languages_fr">Français</string>
     <string name="languages_en">English</string>
@@ -52,7 +54,9 @@
     <string name="filters_price_desc">Filtrer par prix descendant</string>
     <string name="filters_price_asc">Filtrer par prix ascendant</string>
 
-    <string name="copied_to_clipboard">Copié dans le presse-papier</string>
-    <string name="error_no_connection">Mise à jour des données impossible.</string>
+    <string name="toast_copied_to_clipboard">Copié dans le presse-papier</string>
+    <string name="toast_error_no_connection">Mise à jour des données impossible.</string>
+    <string name="toast_export_config_success">Configuration exportée avec succès.</string>
+    <string name="toast_import_config_success">Configuration importée avec succès.</string>
 
 </resources>

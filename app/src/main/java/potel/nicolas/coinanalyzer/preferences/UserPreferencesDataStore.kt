@@ -2,7 +2,6 @@ package potel.nicolas.coinanalyzer.preferences
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import potel.nicolas.coinanalyzer.model.Currency

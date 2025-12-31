@@ -144,7 +144,7 @@ fun CryptoGridView(
                     IconButton(
                         onClick = {
                             clipboardManager.setText(AnnotatedString(crypto.name))
-                            displayToastMessage(context, context.getString(R.string.copied_to_clipboard))
+                            displayToastMessage(context, context.getString(R.string.toast_copied_to_clipboard))
                         },
                         modifier = Modifier
                             .size(iconButtonSize)

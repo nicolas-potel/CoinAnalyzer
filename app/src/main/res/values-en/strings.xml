@@ -35,6 +35,8 @@
     <string name="settings_view_grid">Grid</string>
     <string name="settings_view_list">List</string>
     <string name="settings_filter">Filter</string>
+    <string name="settings_export_configuration">Export configuration</string>
+    <string name="settings_import_configuration">Import configuration</string>
 
     <string name="languages_fr">Français</string>
     <string name="languages_en">English</string>
@@ -52,8 +54,9 @@
     <string name="filters_price_desc">Filter by descending price</string>
     <string name="filters_price_asc">Filter by ascending price</string>
 
-    <string name="copied_to_clipboard">Copied to clipboard</string>
-
-    <string name="error_no_connection">Data could not be updated.</string>
+    <string name="toast_copied_to_clipboard">Copied to clipboard</string>
+    <string name="toast_error_no_connection">Data could not be updated.</string>
+    <string name="toast_export_config_success">Configuration exported successfully.</string>
+    <string name="toast_import_config_success">Configuration imported successfully.</string>
 
 </resources>
