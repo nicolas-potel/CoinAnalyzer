@@ -22,6 +22,7 @@ import potel.nicolas.coinanalyzer.components.CryptoListView
 import potel.nicolas.coinanalyzer.components.ErrorMessage
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
+import potel.nicolas.coinanalyzer.components.WaitingIndicator
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
@@ -48,6 +49,8 @@ fun FavoritesPage(
         favoriteIds.contains(crypto.id)
     }
 
+    val isLoading by cryptoViewModel.isLoading.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -56,30 +59,35 @@ fun FavoritesPage(
             selectedInterval = selectedTimeInterval,
             onSelect = { userPreferencesViewModel.setTimeInterval(it) }
         )
-        SectionTitle(stringResource(id = R.string.page_favorites))
 
-        if (favoriteCryptos.isEmpty()) {
-            ErrorMessage(stringResource(R.string.favorites_no_data))
-        } else if (isListView) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(favoriteCryptosAsCryptos) { crypto ->
-                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
+        if (isLoading) {
+            WaitingIndicator()
+        } else {
+            SectionTitle(stringResource(id = R.string.page_favorites))
+
+            if (favoriteCryptos.isEmpty()) {
+                ErrorMessage(stringResource(R.string.favorites_no_data))
+            } else if (isListView) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(favoriteCryptosAsCryptos) { crypto ->
+                        CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
+                    }
+                }
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(favoriteCryptosAsCryptos) { crypto ->
+                        CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
+                    }
                 }
             }
-        } else {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(favoriteCryptosAsCryptos) { crypto ->
-                CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
-            }
         }
-    }
     }
 }

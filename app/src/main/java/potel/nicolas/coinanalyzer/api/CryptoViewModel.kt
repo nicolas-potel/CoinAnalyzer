@@ -34,6 +34,9 @@ class CryptoViewModel(
     private val _selectedCrypto = MutableStateFlow<CryptoData?>(null)
     val selectedCrypto = _selectedCrypto
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     init {
         viewModelScope.launch {
             userPreferencesViewModel.currency.collect { currency ->
@@ -50,6 +53,7 @@ class CryptoViewModel(
      */
     private suspend fun loadCryptos(currencySymbol: String) {
         val converter = QuoteMapConverter()
+        _isLoading.value = true
 
         try {
             val fetched = fetchCryptos(currencySymbol)
@@ -65,6 +69,8 @@ class CryptoViewModel(
             _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
             Log.e("CryptoViewModel", "Error fetching cryptos", e)
             displayToastMessage(applicationContext, applicationContext.getString(R.string.toast_error_no_connection))
+        } finally {
+            _isLoading.value = false
         }
     }
 
