@@ -140,8 +140,10 @@ fun CryptoListView(
                         .align(Alignment.CenterVertically)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Share,
-                        contentDescription = "Share ${crypto.name}"
+                        imageVector = ImageVector.vectorResource(
+                            id = R.drawable.copy
+                        ),
+                        contentDescription = "Copy ${crypto.name}",
                     )
                 }
             }
