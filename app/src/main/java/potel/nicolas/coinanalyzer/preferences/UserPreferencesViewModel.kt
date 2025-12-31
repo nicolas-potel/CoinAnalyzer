@@ -60,8 +60,8 @@ class UserPreferencesViewModel (
      */
     val timeInterval: StateFlow<TimeInterval> =
         repository.timeInterval
-            .map { timeIntervalAsInt ->
-                TimeInterval.from(timeIntervalAsInt)
+            .map { timeIntervalId ->
+                TimeInterval.from(timeIntervalId)
             }
             .stateIn(
                 scope = viewModelScope,

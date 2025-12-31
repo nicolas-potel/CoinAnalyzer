@@ -14,7 +14,7 @@ import potel.nicolas.coinanalyzer.recentsearch.RecentSearchDAO
         FavoriteCrypto::class,
         RecentSearch::class
                ],
-    version = 2
+    version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteCryptoDAO

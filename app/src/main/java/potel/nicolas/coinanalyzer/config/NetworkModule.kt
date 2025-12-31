@@ -3,12 +3,14 @@ package potel.nicolas.coinanalyzer.config
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import potel.nicolas.coinanalyzer.api.CryptoApi
+import potel.nicolas.coinanalyzer.util.InstantAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object NetworkModule {
 
     private val moshi: Moshi = Moshi.Builder()
+        .add(InstantAdapter())
         .add(KotlinJsonAdapterFactory())
         .build()
 

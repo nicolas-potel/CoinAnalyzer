@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.CryptoGridView
@@ -24,12 +25,14 @@ import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun FavoritesPage(
-    favoriteCryptoViewModel: FavoriteCryptoViewModel,
-    userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel
+    navHostController: NavHostController,
+    favoriteCryptoViewModel: FavoriteCryptoViewModel = ViewModels.favoriteCryptoViewModel,
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel,
+    cryptoViewModel: CryptoViewModel = ViewModels.cryptoViewModel
 ) {
     val favoriteCryptos by favoriteCryptoViewModel.favorites.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
@@ -63,7 +66,7 @@ fun FavoritesPage(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(favoriteCryptosAsCryptos) { crypto ->
-                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
+                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
                 }
             }
         } else {
@@ -74,7 +77,7 @@ fun FavoritesPage(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(favoriteCryptosAsCryptos) { crypto ->
-                CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
+                CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
             }
         }
     }

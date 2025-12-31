@@ -30,13 +30,14 @@ import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun SearchPage(
     navController: NavHostController,
-    cryptoViewModel: CryptoViewModel,
-    recentSearchViewModel: RecentSearchViewModel,
-    userPreferencesViewModel: UserPreferencesViewModel
+    cryptoViewModel: CryptoViewModel = ViewModels.cryptoViewModel,
+    recentSearchViewModel: RecentSearchViewModel = ViewModels.recentSearchViewModel,
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel
 ) {
     var searchText by remember { mutableStateOf("") }
 

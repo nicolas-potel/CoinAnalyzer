@@ -1,6 +1,8 @@
 package potel.nicolas.coinanalyzer.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -11,34 +13,43 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.favorites.FavoriteCrypto
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.api.CryptoData
+import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.model.Currency
 import potel.nicolas.coinanalyzer.model.TimeInterval
 import potel.nicolas.coinanalyzer.api.getPercentChange
+import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.formatPercentChange
 
 @Composable
 fun CryptoGridView(
     crypto : CryptoData,
     currency : Currency,
     timeInterval: TimeInterval,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel
+    favoriteCryptoViewModel: FavoriteCryptoViewModel,
+    cryptoViewModel: CryptoViewModel,
+    navController: NavHostController
 ) {
 
     val iconButtonSize = 24.dp
@@ -56,15 +67,25 @@ fun CryptoGridView(
         .collectAsState(initial = false)
 
     val cryptoAsFavoriteCrypto = FavoriteCrypto.from(crypto)
+    val borderRadius = 42.dp
 
     Column(
         modifier = Modifier
             .fillMaxWidth(0.488f)
             .aspectRatio(1.4f)
+            .clip(RoundedCornerShape(borderRadius))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = true)
+            ) {
+                cryptoViewModel.setSelectedCrypto(crypto)
+                cryptoViewModel.getCryptoDetails(crypto)
+                navController.navigate(Routes.OVERVIEW)
+            }
             .border(
                 width = 1.dp,
                 color = applicationTheme.fontSecondary,
-                shape = RoundedCornerShape(42.dp)
+                shape = RoundedCornerShape(borderRadius)
             )
             .padding(horizontal = 16.dp, vertical = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -128,9 +149,7 @@ fun CryptoGridView(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = percentDiffColor,
-                    text = (if (percentDiff >= 0) "+" else "")
-                            + String.format("%.3f", percentDiff)
-                            + "%"
+                    text = formatPercentChange(percentDiff)
                 )
 
             }

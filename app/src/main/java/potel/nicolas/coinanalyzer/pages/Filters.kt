@@ -32,11 +32,12 @@ import potel.nicolas.coinanalyzer.components.ModalPage
 import potel.nicolas.coinanalyzer.model.Filter
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun FiltersPage(
     navController : NavHostController,
-    userPreferencesViewModel: UserPreferencesViewModel
+    userPreferencesViewModel: UserPreferencesViewModel = ViewModels.userPreferencesViewModel
 ) {
     val borderRadius = 12.dp
 

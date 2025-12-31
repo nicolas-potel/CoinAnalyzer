@@ -14,24 +14,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import potel.nicolas.coinanalyzer.R
-import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.components.CryptoGridView
 import potel.nicolas.coinanalyzer.components.CryptoListView
 import potel.nicolas.coinanalyzer.components.ErrorMessage
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
-import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
-import potel.nicolas.coinanalyzer.model.Currency
-import potel.nicolas.coinanalyzer.model.TimeInterval
-import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.ViewModels
 
 @Composable
 fun CoinsPage(
-    userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel
+    navHostController: NavHostController
 ) {
+    val userPreferencesViewModel = ViewModels.userPreferencesViewModel
+    val cryptoViewModel = ViewModels.cryptoViewModel
+    val favoriteCryptoViewModel = ViewModels.favoriteCryptoViewModel
+
     val cryptos by cryptoViewModel.cryptos.collectAsState()
     val isListView by userPreferencesViewModel.isListViewEnabled.collectAsState()
 
@@ -59,7 +58,7 @@ fun CoinsPage(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(filteredCryptos) { crypto ->
-                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
+                    CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
                 }
             }
         } else {
@@ -70,7 +69,7 @@ fun CoinsPage(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(filteredCryptos) { crypto ->
-                    CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel)
+                    CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
                 }
             }
         }

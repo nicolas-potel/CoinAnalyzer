@@ -9,9 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import potel.nicolas.coinanalyzer.api.CryptoViewModel
 import potel.nicolas.coinanalyzer.config.Routes
-import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.pages.CoinsPage
 import potel.nicolas.coinanalyzer.pages.CurrenciesPage
 import potel.nicolas.coinanalyzer.pages.FavoritesPage
@@ -21,17 +19,11 @@ import potel.nicolas.coinanalyzer.pages.LanguagesPage
 import potel.nicolas.coinanalyzer.pages.OverviewPage
 import potel.nicolas.coinanalyzer.pages.SearchPage
 import potel.nicolas.coinanalyzer.pages.SettingsPage
-import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
-import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 
 @Composable
 fun AppNavigation(
     modifier: Modifier = Modifier,
     navController : NavHostController,
-    userPreferencesViewModel: UserPreferencesViewModel,
-    cryptoViewModel: CryptoViewModel,
-    favoriteCryptoViewModel: FavoriteCryptoViewModel,
-    recentSearchViewModel: RecentSearchViewModel
 ) {
 
     Box(modifier = modifier
@@ -42,15 +34,15 @@ fun AppNavigation(
             navController = navController,
             startDestination = Routes.HOME
         ) {
-            composable(Routes.HOME) { HomePage(navController, userPreferencesViewModel, cryptoViewModel, favoriteCryptoViewModel) }
-            composable(Routes.COINS) { CoinsPage(userPreferencesViewModel, cryptoViewModel, favoriteCryptoViewModel) }
-            composable(Routes.FAVORITES) { FavoritesPage(favoriteCryptoViewModel, userPreferencesViewModel, cryptoViewModel) }
+            composable(Routes.HOME) { HomePage(navController) }
+            composable(Routes.COINS) { CoinsPage(navController) }
+            composable(Routes.FAVORITES) { FavoritesPage(navController) }
             composable(Routes.OVERVIEW) { OverviewPage() }
-            composable(Routes.SEARCH) { SearchPage(navController, cryptoViewModel, recentSearchViewModel, userPreferencesViewModel) }
-            composable(Routes.SETTINGS) { SettingsPage(navController, userPreferencesViewModel) }
-            composable(Routes.CURRENCIES) { CurrenciesPage(navController, userPreferencesViewModel) }
+            composable(Routes.SEARCH) { SearchPage(navController) }
+            composable(Routes.SETTINGS) { SettingsPage(navController) }
+            composable(Routes.CURRENCIES) { CurrenciesPage(navController) }
             composable(Routes.LANGUAGES) { LanguagesPage(navController) }
-            composable(Routes.FILTERS) { FiltersPage(navController, userPreferencesViewModel) }
+            composable(Routes.FILTERS) { FiltersPage(navController) }
         }
     }
 }
