@@ -51,26 +51,28 @@ class CryptoViewModel(
      *
      * @param currencySymbol The user's selected currency.
      */
-    private suspend fun loadCryptos(currencySymbol: String) {
+    fun loadCryptos(currencySymbol: String) {
         val converter = QuoteMapConverter()
         _isLoading.value = true
 
-        try {
-            val fetched = fetchCryptos(currencySymbol)
+        viewModelScope.launch {
+            try {
+                val fetched = fetchCryptos(currencySymbol)
 
-            if (fetched.isEmpty()) {
+                if (fetched.isEmpty()) {
+                    _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
+                } else {
+                    _cryptos.value = fetched
+                    cryptoEntityRepository.insertAll(fetched.map { it.toEntity(converter) })
+                }
+
+            } catch (e: Exception) {
                 _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
-            } else {
-                _cryptos.value = fetched
-                cryptoEntityRepository.insertAll(fetched.map { it.toEntity(converter) })
+                Log.e("CryptoViewModel", "Error fetching cryptos", e)
+                displayToastMessage(applicationContext, applicationContext.getString(R.string.toast_error_no_connection))
+            } finally {
+                _isLoading.value = false
             }
-
-        } catch (e: Exception) {
-            _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
-            Log.e("CryptoViewModel", "Error fetching cryptos", e)
-            displayToastMessage(applicationContext, applicationContext.getString(R.string.toast_error_no_connection))
-        } finally {
-            _isLoading.value = false
         }
     }
 
