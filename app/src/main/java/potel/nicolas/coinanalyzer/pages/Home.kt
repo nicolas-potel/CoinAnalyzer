@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,6 +27,7 @@ import potel.nicolas.coinanalyzer.components.CryptoListView
 import potel.nicolas.coinanalyzer.components.ErrorMessage
 import potel.nicolas.coinanalyzer.components.SectionTitle
 import potel.nicolas.coinanalyzer.components.TimeIntervalSwitcher
+import potel.nicolas.coinanalyzer.components.WaitingIndicator
 import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoViewModel
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
@@ -54,6 +56,8 @@ fun HomePage(
         favoriteIds.contains(crypto.id)
     }
 
+    val isLoading by cryptoViewModel.isLoading.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -64,108 +68,114 @@ fun HomePage(
                 userPreferencesViewModel.setTimeInterval(it)
             }
         )
-        SectionTitle(stringResource(id = R.string.home_favorites))
 
-        // Display some favorite cryptos if possible
-        if (favoriteCryptosAsCryptos.isEmpty()){
-            ErrorMessage(stringResource(R.string.favorites_no_data))
+        if (isLoading) {
+            WaitingIndicator()
         } else {
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                favoriteCryptosAsCryptos
-                    .take(displayNbElements)
-                    .forEach {
-                        if (isListView) {
-                            CryptoListView(
-                                it,
-                                selectedCurrency,
-                                selectedTimeInterval,
-                                favoriteCryptoViewModel,
-                                cryptoViewModel,
-                                navController
-                            )
-                        } else {
-                            CryptoGridView(
-                                it,
-                                selectedCurrency,
-                                selectedTimeInterval,
-                                favoriteCryptoViewModel,
-                                cryptoViewModel,
-                                navController
-                            )
-                        }
-                    }
-            }
-            if (favoriteCryptosAsCryptos.size > displayNbElements) {
-                Box(
+            SectionTitle(stringResource(id = R.string.home_favorites))
+            // Display some favorite cryptos if possible
+            if (favoriteCryptosAsCryptos.isEmpty()){
+                ErrorMessage(stringResource(R.string.favorites_no_data))
+            } else {
+                FlowRow(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { navController.navigate(Routes.FAVORITES) },
-                    contentAlignment = Alignment.Center
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = stringResource(R.string.home_see_more),
-                        fontSize = 20.sp
-                    )
+                    favoriteCryptosAsCryptos
+                        .take(displayNbElements)
+                        .forEach {
+                            if (isListView) {
+                                CryptoListView(
+                                    it,
+                                    selectedCurrency,
+                                    selectedTimeInterval,
+                                    favoriteCryptoViewModel,
+                                    cryptoViewModel,
+                                    navController
+                                )
+                            } else {
+                                CryptoGridView(
+                                    it,
+                                    selectedCurrency,
+                                    selectedTimeInterval,
+                                    favoriteCryptoViewModel,
+                                    cryptoViewModel,
+                                    navController
+                                )
+                            }
+                        }
+                }
+                if (favoriteCryptosAsCryptos.size > displayNbElements) {
+                    // See more ...
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null
+                            ) { navController.navigate(Routes.FAVORITES) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.home_see_more),
+                            fontSize = 20.sp
+                        )
+                    }
                 }
             }
-        }
 
-        // We display some random cryptos here
-        SectionTitle(stringResource(id = R.string.home_coins))
-        if (cryptos.isEmpty()) {
-            ErrorMessage(stringResource(R.string.coins_no_data))
-        } else {
-            FlowRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                filteredCryptos
-                    .take(displayNbElements)
-                    .forEach {
-                        if (isListView) {
-                            CryptoListView(
-                                it,
-                                selectedCurrency,
-                                selectedTimeInterval,
-                                favoriteCryptoViewModel,
-                                cryptoViewModel,
-                                navController
-                            )
-                        } else {
-                            CryptoGridView(
-                                it,
-                                selectedCurrency,
-                                selectedTimeInterval,
-                                favoriteCryptoViewModel,
-                                cryptoViewModel,
-                                navController
-                            )
-                        }
-                    }
-            }
-            if (filteredCryptos.size > displayNbElements) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { navController.navigate(Routes.COINS) },
-                    contentAlignment = Alignment.Center
+            // We display some cryptos here
+            SectionTitle(stringResource(id = R.string.home_coins))
+            if (cryptos.isEmpty()) {
+                ErrorMessage(stringResource(R.string.coins_no_data))
+            } else {
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = stringResource(R.string.home_see_more),
-                        fontSize = 20.sp
-                    )
+                    filteredCryptos
+                        .take(displayNbElements)
+                        .forEach {
+                            if (isListView) {
+                                CryptoListView(
+                                    it,
+                                    selectedCurrency,
+                                    selectedTimeInterval,
+                                    favoriteCryptoViewModel,
+                                    cryptoViewModel,
+                                    navController
+                                )
+                            } else {
+                                CryptoGridView(
+                                    it,
+                                    selectedCurrency,
+                                    selectedTimeInterval,
+                                    favoriteCryptoViewModel,
+                                    cryptoViewModel,
+                                    navController
+                                )
+                            }
+                        }
+                }
+                if (filteredCryptos.size > displayNbElements) {
+                    // See more ...
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null
+                            ) { navController.navigate(Routes.COINS) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.home_see_more),
+                            fontSize = 20.sp
+                        )
+                    }
                 }
             }
         }

@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.first
 import java.io.InputStream
 import java.io.OutputStream
 
+/**
+ * Data class representing the user preferences.
+ */
 @JsonClass(generateAdapter = true)
 data class UserPreferences(
     val currency : String = UserPreferencesDefaultValues.currency,
@@ -17,6 +20,9 @@ data class UserPreferences(
     val filter : String = UserPreferencesDefaultValues.filter
 )
 
+/**
+ * Returns the current user preferences.
+ */
 suspend fun Context.readUserPreferences(): UserPreferences {
     val prefs = userPreferencesDataStore.data.first()
     return UserPreferences(
@@ -27,6 +33,11 @@ suspend fun Context.readUserPreferences(): UserPreferences {
     )
 }
 
+/**
+ * Saves the current user preferences.
+ *
+ * @param prefs The user preferences to be saved.
+ */
 suspend fun Context.saveUserPreferences(prefs: UserPreferences) {
     userPreferencesDataStore.edit { data ->
         data[UserPreferencesKeys.LIST_VIEW_ENABLED] = prefs.listViewEnabled
@@ -36,6 +47,11 @@ suspend fun Context.saveUserPreferences(prefs: UserPreferences) {
     }
 }
 
+/**
+ * Exports the current user preferences to the given output stream.
+ *
+ * @param outputStream The output stream to be exported to.
+ */
 suspend fun Context.exportUserPreferences(outputStream: OutputStream) {
     val prefs = readUserPreferences()
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -45,7 +61,11 @@ suspend fun Context.exportUserPreferences(outputStream: OutputStream) {
     outputStream.bufferedWriter().use { it.write(json) }
 }
 
-
+/**
+ * Imports the user preferences from the given input stream.
+ *
+ * @param inputStream The input stream to be imported from.
+ */
 suspend fun Context.importUserPreferences(inputStream: InputStream) {
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     val adapter = moshi.adapter(UserPreferences::class.java)
