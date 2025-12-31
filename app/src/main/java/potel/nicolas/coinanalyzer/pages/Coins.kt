@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.components.CryptoGridView
 import potel.nicolas.coinanalyzer.components.CryptoListView
@@ -43,40 +45,45 @@ fun CoinsPage(
 
     val isLoading by cryptoViewModel.isLoading.collectAsState()
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isLoading),
+        onRefresh = { cryptoViewModel.loadCryptos(selectedCurrency.symbol) }
     ) {
-        TimeIntervalSwitcher(
-            selectedInterval = selectedTimeInterval,
-            onSelect = { userPreferencesViewModel.setTimeInterval(it) }
-        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            TimeIntervalSwitcher(
+                selectedInterval = selectedTimeInterval,
+                onSelect = { userPreferencesViewModel.setTimeInterval(it) }
+            )
 
-        if (isLoading) {
-            WaitingIndicator()
-        } else {
-            SectionTitle(stringResource(id = R.string.page_coins))
-
-            if (filteredCryptos.isEmpty()) {
-                ErrorMessage(stringResource(R.string.coins_no_data))
-            } else if (isListView) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(filteredCryptos) { crypto ->
-                        CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
-                    }
-                }
+            if (isLoading) {
+                WaitingIndicator()
             } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(filteredCryptos) { crypto ->
-                        CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
+                SectionTitle(stringResource(id = R.string.page_coins))
+
+                if (filteredCryptos.isEmpty()) {
+                    ErrorMessage(stringResource(R.string.coins_no_data))
+                } else if (isListView) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(filteredCryptos) { crypto ->
+                            CryptoListView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
+                        }
+                    }
+                } else {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(filteredCryptos) { crypto ->
+                            CryptoGridView(crypto, selectedCurrency, selectedTimeInterval, favoriteCryptoViewModel, cryptoViewModel, navHostController)
+                        }
                     }
                 }
             }
