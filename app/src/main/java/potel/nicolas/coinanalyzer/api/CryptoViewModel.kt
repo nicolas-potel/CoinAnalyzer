@@ -32,6 +32,18 @@ class CryptoViewModel(
     }
 
     /**
+     * Returns the corresponding crypto data using the specified crypto item's id.
+     * @param cryptoItem The specified crypto item.
+     */
+    fun getDataFromCryptoItem(cryptoItem: CryptoItem) : CryptoData {
+        val crypto = _cryptos.value.find { it.id == cryptoItem.id }
+        if (crypto != null) {
+            return crypto
+        }
+        throw Exception("Specified crypto item not found : ${cryptoItem.id}")
+    }
+
+    /**
      * Sets the selected crypto to specified one.
      *
      * @param crypto The new selected crypto.
@@ -66,7 +78,7 @@ class CryptoViewModel(
                     BuildConfig.API_KEY,
                     crypto.symbol)
                 _cryptoDetails.value = response.data[crypto.symbol]
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 _cryptoDetails.value = null
             }
         }

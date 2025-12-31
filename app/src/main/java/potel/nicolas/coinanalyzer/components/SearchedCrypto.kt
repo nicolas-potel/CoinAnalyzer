@@ -16,15 +16,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import potel.nicolas.coinanalyzer.api.CryptoData
+import potel.nicolas.coinanalyzer.api.CryptoViewModel
+import potel.nicolas.coinanalyzer.config.Routes
 import potel.nicolas.coinanalyzer.model.CryptoItem
 import potel.nicolas.coinanalyzer.recentsearch.RecentSearchViewModel
 import potel.nicolas.coinanalyzer.ui.theme.applicationTheme
+import potel.nicolas.coinanalyzer.util.ViewModels
 import potel.nicolas.coinanalyzer.util.capitalizeFirstLetter
 
 @Composable
 fun SearchedCrypto(
-    crypto : CryptoItem,
-    recentSearchViewModel: RecentSearchViewModel
+    crypto : CryptoData,
+    navController: NavHostController,
+    cryptoViewModel: CryptoViewModel = ViewModels.cryptoViewModel,
+    recentSearchViewModel: RecentSearchViewModel = ViewModels.recentSearchViewModel
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -33,7 +40,12 @@ fun SearchedCrypto(
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = true)
-            ) { recentSearchViewModel.addRecentSearch(crypto) }
+            ) {
+                cryptoViewModel.setSelectedCrypto(crypto)
+                cryptoViewModel.getCryptoDetails(crypto)
+                navController.navigate(Routes.OVERVIEW)
+                recentSearchViewModel.addRecentSearch(crypto)
+            }
             .background(
                 color = applicationTheme.tertiary,
                 shape = RoundedCornerShape(20.dp)

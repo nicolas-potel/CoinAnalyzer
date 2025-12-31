@@ -87,7 +87,7 @@ fun SearchPage(
                     }
                     .take(nbOfDisplayedCryptos)
                     .forEach { c ->
-                        SearchedCrypto(c, recentSearchViewModel)
+                        SearchedCrypto(c, navController)
                     }
             }
         }
@@ -98,7 +98,10 @@ fun SearchPage(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             recentSearches
-                .forEach { SearchedCrypto(it, recentSearchViewModel) }
+                .forEach { SearchedCrypto(
+                            cryptoViewModel.getDataFromCryptoItem(it),
+                            navController)
+                }
         }
     }
 }
