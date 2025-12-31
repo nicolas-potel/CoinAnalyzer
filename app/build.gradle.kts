@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
     implementation(libs.converter.moshi)
 
     implementation(libs.datastore.preferences)

@@ -1,5 +1,6 @@
 package potel.nicolas.coinanalyzer.api
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,10 +8,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.BuildConfig
 import potel.nicolas.coinanalyzer.config.NetworkModule.cryptoApi
+import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoRepository
 import potel.nicolas.coinanalyzer.model.CryptoItem
+import potel.nicolas.coinanalyzer.offline.CryptoEntityRepository
+import potel.nicolas.coinanalyzer.offline.QuoteMapConverter
+import potel.nicolas.coinanalyzer.offline.toCryptoData
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
 
 class CryptoViewModel(
+    private val cryptoEntityRepository: CryptoEntityRepository,
     userPreferencesViewModel: UserPreferencesViewModel
 ) : ViewModel() {
 
@@ -26,10 +32,36 @@ class CryptoViewModel(
     init {
         viewModelScope.launch {
             userPreferencesViewModel.currency.collect { currency ->
-                fetchCryptos(currency.symbol)
+                loadCryptos(currency.symbol)
             }
         }
     }
+
+    /**
+     * Loads all crypto data from the API and stores it in the database.
+     * If the data could not be retrieved from api, uses the data from the database.
+     *
+     * @param currencySymbol The user's selected currency.
+     */
+    private suspend fun loadCryptos(currencySymbol: String) {
+        val converter = QuoteMapConverter()
+
+        try {
+            val fetched = fetchCryptos(currencySymbol)
+
+            if (fetched.isEmpty()) {
+                _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
+            } else {
+                _cryptos.value = fetched
+                cryptoEntityRepository.insertAll(fetched.map { it.toEntity(converter) })
+            }
+
+        } catch (e: Exception) {
+            _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
+            Log.e("CryptoViewModel", "Error fetching cryptos", e)
+        }
+    }
+
 
     /**
      * Returns the corresponding crypto data using the specified crypto item's id.
@@ -53,17 +85,17 @@ class CryptoViewModel(
     }
 
     /**
-     * Fetches the data for all available cryptos.
+     * Fetches the data for all available cryptos and returns it.
      *
      * @param currency The user's selected currency.
      */
-    private fun fetchCryptos(currency : String) {
-        viewModelScope.launch {
-            val response = cryptoApi.getCryptos(BuildConfig.API_KEY, currency)
+    private suspend fun fetchCryptos(currency : String): List<CryptoData> {
+        val response = cryptoApi.getCryptos(
+            BuildConfig.API_KEY,
+            currency
+        )
 
-            val sortedCryptos = response.data.sortedBy { it.rank }
-            _cryptos.value = sortedCryptos
-        }
+        return response.data.sortedBy { it.rank }
     }
 
     /**

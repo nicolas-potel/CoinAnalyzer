@@ -15,7 +15,7 @@ object ViewModels {
         app = application
 
         userPreferencesViewModel = UserPreferencesViewModel(app.userPreferencesRepository)
-        cryptoViewModel = CryptoViewModel(userPreferencesViewModel)
+        cryptoViewModel = CryptoViewModel(app.cryptoEntityRepository, userPreferencesViewModel)
         favoriteCryptoViewModel = FavoriteCryptoViewModel(app.favoriteCryptoRepository)
         recentSearchViewModel = RecentSearchViewModel(app.recentSearchRepository)
         languageViewModel = LanguageViewModel()
