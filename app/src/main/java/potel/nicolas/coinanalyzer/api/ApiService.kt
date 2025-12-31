@@ -13,13 +13,10 @@ interface CryptoApi {
         @Query("convert") fiat: String
     ): CryptoDataResponse
 
-    @GET("v1/cryptocurrency/quotes/historical")
-    suspend fun getHistoricalQuotes(
+    @GET("v1/cryptocurrency/info")
+    suspend fun getCryptoDetails(
         @Header("X-CMC_PRO_API_KEY") apiKey: String,
         @Query("symbol") symbol: String,
-        @Query("interval") interval: String,
-        @Query("convert") convert: String,
-        @Query("time_start") timeStart: Instant,
     ): CryptoDetailsResponse
 
 }

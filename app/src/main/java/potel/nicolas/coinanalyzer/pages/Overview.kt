@@ -174,6 +174,8 @@ fun OverviewPage(
                         userPreferencesViewModel.setTimeInterval(it)
                     }
                 )
+
+                Text(if (cryptoDetails != null) cryptoDetails!!.description else "")
             }
         }
     }

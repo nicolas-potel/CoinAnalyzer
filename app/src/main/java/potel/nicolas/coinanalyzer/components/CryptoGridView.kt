@@ -78,7 +78,7 @@ fun CryptoGridView(
                 indication = rememberRipple(bounded = true)
             ) {
                 cryptoViewModel.setSelectedCrypto(crypto)
-                cryptoViewModel.getCryptoDetails(crypto, currency, timeInterval)
+                cryptoViewModel.getCryptoDetails(crypto)
                 navController.navigate(Routes.OVERVIEW)
             }
             .border(
