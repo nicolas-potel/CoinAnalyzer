@@ -1,12 +1,15 @@
 package potel.nicolas.coinanalyzer.api
 
+import android.content.Context
 import android.util.Log
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import potel.nicolas.coinanalyzer.BuildConfig
+import potel.nicolas.coinanalyzer.R
 import potel.nicolas.coinanalyzer.config.NetworkModule.cryptoApi
 import potel.nicolas.coinanalyzer.favorites.FavoriteCryptoRepository
 import potel.nicolas.coinanalyzer.model.CryptoItem
@@ -14,8 +17,10 @@ import potel.nicolas.coinanalyzer.offline.CryptoEntityRepository
 import potel.nicolas.coinanalyzer.offline.QuoteMapConverter
 import potel.nicolas.coinanalyzer.offline.toCryptoData
 import potel.nicolas.coinanalyzer.preferences.UserPreferencesViewModel
+import potel.nicolas.coinanalyzer.util.displayToastMessage
 
 class CryptoViewModel(
+    private val applicationContext: Context,
     private val cryptoEntityRepository: CryptoEntityRepository,
     userPreferencesViewModel: UserPreferencesViewModel
 ) : ViewModel() {
@@ -58,7 +63,8 @@ class CryptoViewModel(
 
         } catch (e: Exception) {
             _cryptos.value = cryptoEntityRepository.getAll().map { it.toCryptoData(converter) }
-            Log.e("CryptoViewModel", "Error fetching cryptos", e)
+            Log.e("CryptoViewModel", "Error fetching cryptos : ${e.message}", e)
+            displayToastMessage(applicationContext, applicationContext.getString(R.string.error_no_connection))
         }
     }
 

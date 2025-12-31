@@ -1,5 +1,6 @@
 package potel.nicolas.coinanalyzer.components
 
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,7 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,6 +57,10 @@ fun CryptoListView(
 
     val iconButtonSize = 24.dp
     val borderRadius = 42.dp
+    val copiedText = stringResource(R.string.copied_to_clipboard)
+
+    val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
 
     val quote = crypto.quote.values.first()
     val percentDiff = quote.getPercentChange(timeInterval)
@@ -65,7 +74,6 @@ fun CryptoListView(
 
     val isFavorite by favoriteCryptoViewModel.isFavorite(crypto.id)
         .collectAsState(initial = false)
-
 
     val cryptoAsFavoriteCrypto = FavoriteCrypto.from(crypto)
 
@@ -123,7 +131,10 @@ fun CryptoListView(
                     )
                 }
                 IconButton(
-                    onClick = {},
+                    onClick = {
+                        clipboardManager.setText(AnnotatedString(crypto.name))
+                        Toast.makeText(context, copiedText, Toast.LENGTH_SHORT).show()
+                    },
                     modifier = Modifier
                         .size(iconButtonSize)
                         .align(Alignment.CenterVertically)
